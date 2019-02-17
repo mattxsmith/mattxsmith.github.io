@@ -2,20 +2,33 @@
     <head>
         <style>
             body {
-                  padding: 10px;
-                  padding-top: 0px;
                   font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
                 }
 
-                table.games, th, td {
+                table, th, td {
                     border: 1px solid black;
                     border-collapse: collapse;
-                    padding: 3px;
                     text-align: right;
                 }
-            
+            td {padding: 3px;} 
              thead {font-weight: bold}
 
+            input[type="text"]
+                {
+                    font-size:12px;
+                }
+
+            table.games {
+                float: left;
+                margin-right: 30px;
+                margin-top: 0px;
+            }
+
+            table.summary {
+                float: center;
+                margin:20px;
+                margin-top: 20px;
+            }
         </style>
     </head>
     <table class="games">
@@ -23,34 +36,52 @@
             <tr><td>Date</td><td>Away</td><td>Home</td><td>Home WP%</td>
          </thead>
         <tbody>
-            <tr><td>Feb 18</td><td>KSU</td><td>WVU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 18</td><td>TCU</td><td>OSU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 19</td><td>BU</td><td>ISU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 23</td><td>UT</td><td>OU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 23</td><td>ISU</td><td>TCU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 23</td><td>WVU</td><td>BU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 23</td><td>OSU</td><td>KSU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 23</td><td>KU</td><td>TTU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 25</td><td>OU</td><td>ISU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 25</td><td>KSU</td><td>KU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 26</td><td>TCU</td><td>WVU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 27</td><td>OSU</td><td>TTU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Feb 27</td><td>UT</td><td>BU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 2</td><td>KU</td><td>OSU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 2</td><td>WVU</td><td>OU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 2</td><td>ISU</td><td>UT</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 2</td><td>TTU</td><td>TCU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 2</td><td>BU</td><td>KSU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 4</td><td>UT</td><td>TTU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 4</td><td>KSU</td><td>TCU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 5</td><td>KU</td><td>OU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 6</td><td>ISU</td><td>WVU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 6</td><td>OSU</td><td>BU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 9</td><td>TCU</td><td>UT</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 9</td><td>BU</td><td>KU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 9</td><td>TTU</td><td>ISU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 9</td><td>WVU</td><td>OSU</td><td><input type="text" size=5 value=0></input></td>
-            <tr><td>Mar 9</td><td>OU</td><td>KSU</td><td><input type="text" size=5 value=0></input></td>
+            <tr><td>Feb 18</td><td>KSU</td><td>WVU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 18</td><td>TCU</td><td>OSU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 19</td><td>BU</td><td>ISU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 23</td><td>UT</td><td>OU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 23</td><td>ISU</td><td>TCU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 23</td><td>WVU</td><td>BU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 23</td><td>OSU</td><td>KSU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 23</td><td>KU</td><td>TTU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 25</td><td>OU</td><td>ISU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 25</td><td>KSU</td><td>KU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 26</td><td>TCU</td><td>WVU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 27</td><td>OSU</td><td>TTU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Feb 27</td><td>UT</td><td>BU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 2</td><td>KU</td><td>OSU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 2</td><td>WVU</td><td>OU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 2</td><td>ISU</td><td>UT</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 2</td><td>TTU</td><td>TCU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 2</td><td>BU</td><td>KSU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 4</td><td>UT</td><td>TTU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 4</td><td>KSU</td><td>TCU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 5</td><td>KU</td><td>OU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 6</td><td>ISU</td><td>WVU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 6</td><td>OSU</td><td>BU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 9</td><td>TCU</td><td>UT</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 9</td><td>BU</td><td>KU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 9</td><td>TTU</td><td>ISU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 9</td><td>WVU</td><td>OSU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+            <tr><td>Mar 9</td><td>OU</td><td>KSU</td><td><input type="text" size=5 value=0 onchange=sim()></input></td>
+        </tbody>
+    </table>
+    <table class="summary">
+        <thead>
+            <tr><td>Team</td><td>Wins</td><td>Champ</td><td>Outright</td></tr>
+        </thead>
+        <tbody>
+            <tr><td>KU</td><td></td><td></td><td></td></tr>
+            <tr><td>KSU</td><td></td><td></td><td></td></tr>
+            <tr><td>TTU</td><td></td><td></td><td></td></tr>
+            <tr><td>ISU</td><td></td><td></td><td></td></tr>
+            <tr><td>BU</td><td></td><td></td><td></td></tr>
+            <tr><td>UT</td><td></td><td></td><td></td></tr>
+            <tr><td>TCU</td><td></td><td></td><td></td></tr>
+            <tr><td>OU</td><td></td><td></td><td></td></tr>
+            <tr><td>OSU</td><td></td><td></td><td></td></tr>
+            <tr><td>WVU</td><td></td><td></td><td></td></tr>
+            
         </tbody>
     </table>
     <script src="math.js"></script>
