@@ -14,7 +14,7 @@ let teams = {
 function setProbs() {
     let table = document.getElementsByClassName('games')[0];
     let games = table.getElementsByTagName('tr');
-    
+
     for (let i=1; i<games.length; i++) {
         let game = games[i];
         let awayTeam = game.getElementsByTagName('td')[1].innerText;
@@ -68,9 +68,7 @@ function sim(n=10000) {
     }
     champsCount.getElements().forEach(x => champsCount.count[x] /= n);
     outrightCount.getElements().forEach(x => outrightCount.count[x] /= n);
-    console.log(champsCount.count);
     console.timeEnd('sim')
-    console.log(avgWins);
     updateSummary(avgWins, champsCount.count, outrightCount.count);
     sortSummary();
 }
@@ -79,14 +77,14 @@ function Counter() {
     this.count = {};
     this.increment = function(val) {
         if (Object.keys(this.count).indexOf(val) == -1) this.count[val] = 1
-        else this.count[val] += 1 
+        else this.count[val] += 1
     };
     this.update = function(additions) {
         if (typeof additions == 'string') this.increment(additions)
         else {
            for (let i=0; i<additions.length; i++) {
                 this.increment(additions[i]);
-            } 
+            }
         };
     };
     this.getElements = () => Object.keys(this.count);
@@ -113,9 +111,9 @@ function sortSummary() {
     let newBody = document.createElement('tbody');
     for (let i=0; i<rows.length; i++) {
         let row = rows[i];
-        newRows.push(row); 
+        newRows.push(row);
     }
-    newRows = newRows.sort((x,y) => 
+    newRows = newRows.sort((x,y) =>
         Number(y.getElementsByTagName('td')[2].innerText)-
         Number(x.getElementsByTagName('td')[2].innerText)
         );
@@ -124,7 +122,6 @@ function sortSummary() {
     }
     summary.removeChild(tableBody);
     summary.appendChild(newBody);
-    console.log('done!');
 }
 
 setProbs();
