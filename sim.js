@@ -33,7 +33,7 @@ function setProbs() {
     }
 }
 
-function sim(n=10000) {
+function sim(n=20000) {
     console.time('sim');
     let table = document.getElementsByClassName('games')[0];
     let games = table.getElementsByTagName('tr');
