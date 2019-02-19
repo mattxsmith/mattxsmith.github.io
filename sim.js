@@ -1,14 +1,14 @@
 let teams = {
-    KSU: {wins: 10, tempo: 63.8, em: 17.61},
-    KU: {wins: 9, tempo: 70.4, em: 22.46},
-    TTU: {wins: 9, tempo: 66.9, em: 25.58},
-    ISU: {wins: 8, tempo: 67.9, em: 23.80},
-    BU: {wins: 7, tempo: 65.2, em: 16.23},
-    UT: {wins: 7, tempo: 65.4, em: 18.50},
-    TCU: {wins: 5, tempo: 69.2, em: 15.74},
-    OU: {wins: 4, tempo: 69.3, em: 16.24},
-    OSU: {wins: 3, tempo: 65.7, em: 6.41},
-    WVU: {wins: 2, tempo: 69.9, em: 4.74}
+    KSU: {wins: 10, tempo: 63.6, em: 18.17},
+    KU: {wins: 9, tempo: 70.4, em: 22.39},
+    TTU: {wins: 9, tempo: 66.9, em: 25.59},
+    ISU: {wins: 8, tempo: 67.9, em: 23.85},
+    BU: {wins: 7, tempo: 65.2, em: 16.15},
+    UT: {wins: 7, tempo: 65.4, em: 18.51},
+    TCU: {wins: 5, tempo: 69.1, em: 15.11},
+    OU: {wins: 4, tempo: 69.3, em: 16.19},
+    OSU: {wins: 3, tempo: 65.6, em: 7.01},
+    WVU: {wins: 2, tempo: 69.6, em: 4.08}
 };
 
 function setProbs() {
