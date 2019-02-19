@@ -20,7 +20,7 @@ function setProbs() {
         let awayTeam = game.getElementsByTagName('td')[1].innerText;
         let homeTeam = game.getElementsByTagName('td')[2].innerText;
         let tempo = teams[homeTeam].tempo*teams[awayTeam].tempo/67.9;
-        let homeMargin = (teams[homeTeam].em - teams[awayTeam].em)*tempo/100 + 3.75;
+        let homeMargin = (teams[homeTeam].em - teams[awayTeam].em)*tempo/100 + 3.5;
         let homeWinProb = .5*(1+math.erf((homeMargin)/(11*(2)**.5)));
         homeWinProb = Math.round(homeWinProb*1000)/1000;
         let textCell = game.getElementsByTagName('td')[3];
