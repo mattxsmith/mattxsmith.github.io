@@ -11,6 +11,9 @@ let teams = {
     WVU: {wins: 2, tempo: 69.6, em: 4.08}
 };
 
+const HCA = 3.5;
+const AVG_TEMPO = 67.9;
+
 function setProbs() {
     let table = document.getElementsByClassName('games')[0];
     let games = table.getElementsByTagName('tr');
@@ -19,8 +22,8 @@ function setProbs() {
         let game = games[i];
         let awayTeam = game.getElementsByTagName('td')[1].innerText;
         let homeTeam = game.getElementsByTagName('td')[2].innerText;
-        let tempo = teams[homeTeam].tempo*teams[awayTeam].tempo/67.9;
-        let homeMargin = (teams[homeTeam].em - teams[awayTeam].em)*tempo/100 + 3.5;
+        let tempo = teams[homeTeam].tempo*teams[awayTeam].tempo/AVG_TEMPO;
+        let homeMargin = (teams[homeTeam].em - teams[awayTeam].em)*tempo/100 + HCA;
         let homeWinProb = .5*(1+math.erf((homeMargin)/(11*(2)**.5)));
         homeWinProb = Math.round(homeWinProb*1000)/1000;
         let textCell = game.getElementsByTagName('td')[3];
