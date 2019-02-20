@@ -3,7 +3,7 @@ let teams = {
     KU: {wins: 9, tempo: 70.4, em: 22.39},
     TTU: {wins: 9, tempo: 66.9, em: 25.59},
     ISU: {wins: 8, tempo: 67.9, em: 23.85},
-    BU: {wins: 7, tempo: 65.2, em: 16.15},
+    BU: {wins: 8, tempo: 65.2, em: 16.15},
     UT: {wins: 7, tempo: 65.4, em: 18.51},
     TCU: {wins: 5, tempo: 69.1, em: 15.11},
     OU: {wins: 4, tempo: 69.3, em: 16.19},
