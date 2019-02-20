@@ -49,8 +49,8 @@ function sim(n=20000) {
         let homeTeam = game.getElementsByTagName('td')[2].innerText;
         let textCell = game.getElementsByTagName('td')[3];
         let homeWinProb = textCell.getElementsByTagName('input')[0].value;
-        avgWins[homeTeam] += Number(homeWinProb);
-        avgWins[awayTeam] += Number(1-homeWinProb);
+        avgWins[homeTeam] += +homeWinProb;
+        avgWins[awayTeam] += 1- +homeWinProb;
         gameProbs.push({homeTeam: homeTeam, awayTeam: awayTeam, homeWinProb: homeWinProb});
     }
     Object.keys(avgWins).forEach(x => avgWins[x] = Math.round(avgWins[x]*10)/10);
@@ -117,12 +117,10 @@ function sortSummary() {
         newRows.push(row);
     }
     newRows = newRows.sort((x,y) =>
-        Number(y.getElementsByTagName('td')[2].innerText)-
-        Number(x.getElementsByTagName('td')[2].innerText)
-        );
-    for (let i=0; i<newRows.length; i++) {
-        newBody.appendChild(newRows[i]);
-    }
+        +y.getElementsByTagName('td')[2].innerText-
+        +x.getElementsByTagName('td')[2].innerText
+    );
+    for (let rowNum in newRows) newBody.appendChild(newRows[rowNum]);
     summary.removeChild(tableBody);
     summary.appendChild(newBody);
 }
