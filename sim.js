@@ -13,6 +13,8 @@ let teams = {
 
 const HCA = 3.5;
 const AVG_TEMPO = 67.9;
+const round = (num, dec) => Math.round(num*10**dec)/10**dec;
+let contenders = ["KSU", "KU", "ISU", "TTU"];
 
 function setProbs() {
     let table = document.getElementById('games');
@@ -25,11 +27,10 @@ function setProbs() {
         let tempo = teams[homeTeam].tempo*teams[awayTeam].tempo/AVG_TEMPO;
         let homeMargin = (teams[homeTeam].em - teams[awayTeam].em)*tempo/100 + HCA;
         let homeWinProb = .5*(1+math.erf((homeMargin)/(11*(2)**.5)));
-        homeWinProb = Math.round(homeWinProb*1000)/1000;
+        homeWinProb = round(homeWinProb,3);
         let textCell = game.getElementsByTagName('td')[3];
         let textBox = textCell.getElementsByTagName('input')[0];
         textBox.value = homeWinProb;
-        let contenders = ["KSU", "KU", "ISU", "TTU"];
         let contenderCount = contenders.map(x => [awayTeam, homeTeam].includes(x)).reduce((x,y) => x+y);
         if (contenderCount == 2) game.style = 'background-color: #009900'
         else if (contenderCount == 1) game.style = 'background-color: #99ff99'
@@ -53,7 +54,7 @@ function sim(n=20000) {
         avgWins[awayTeam] += 1- +homeWinProb;
         gameProbs.push({homeTeam: homeTeam, awayTeam: awayTeam, homeWinProb: homeWinProb});
     }
-    Object.keys(avgWins).forEach(x => avgWins[x] = Math.round(avgWins[x]*10)/10);
+    Object.keys(avgWins).forEach(x => avgWins[x] = round(avgWins[x], 1));
 
     let champsCount = new Counter();
     let outrightCount = new Counter();
@@ -101,8 +102,8 @@ function updateSummary(wins, champ, outright) {
         cells = row.getElementsByTagName('td')
         let team = cells[0].innerText;
         cells[1].innerText = wins[team];
-        cells[2].innerText = Math.round(champ[team]*1000)/1000 || 0;
-        cells[3].innerText = Math.round(outright[team]*1000)/1000 || 0;
+        cells[2].innerText = round(champ[team], 3) || 0;
+        cells[3].innerText = round(outright[team], 3) || 0;
     }
 }
 
