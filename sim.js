@@ -15,7 +15,7 @@ const HCA = 3.5;
 const AVG_TEMPO = 67.9;
 
 function setProbs() {
-    let table = document.getElementsByClassName('games')[0];
+    let table = document.getElementById('games');
     let games = table.getElementsByTagName('tr');
 
     for (let i=1; i<games.length; i++) {
@@ -38,7 +38,7 @@ function setProbs() {
 
 function sim(n=20000) {
     console.time('sim');
-    let table = document.getElementsByClassName('games')[0];
+    let table = document.getElementById('games');
     let games = table.getElementsByTagName('tr');
     let gameProbs = [];
     let avgWins = {};
