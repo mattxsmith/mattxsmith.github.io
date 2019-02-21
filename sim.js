@@ -94,7 +94,7 @@ function Counter() {
 }
 
 function updateSummary(wins, champ, outright) {
-    let summary = document.getElementsByClassName('summary')[0];
+    let summary = document.getElementById('summary');
     let rows = summary.getElementsByTagName('tr');
     for (let i=1; i<rows.length; i++) {
         let row = rows[i];
@@ -107,7 +107,7 @@ function updateSummary(wins, champ, outright) {
 }
 
 function sortSummary() {
-    let summary = document.getElementsByClassName('summary')[0];
+    let summary = document.getElementById('summary');
     let tableBody = summary.getElementsByTagName('tbody')[0];
     let rows = tableBody.getElementsByTagName('tr');
     let newRows = [];
