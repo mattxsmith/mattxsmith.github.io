@@ -1,13 +1,13 @@
 let teams = {
-    KSU: {wins: 10, tempo: 63.6, em: 18.17},
-    KU: {wins: 9, tempo: 70.4, em: 22.39},
-    TTU: {wins: 9, tempo: 66.9, em: 25.59},
-    ISU: {wins: 8, tempo: 67.9, em: 22.86},
-    BU: {wins: 8, tempo: 65.2, em: 16.88},
-    UT: {wins: 7, tempo: 65.4, em: 18.51},
-    TCU: {wins: 5, tempo: 69.1, em: 15.11},
-    OU: {wins: 4, tempo: 69.3, em: 16.19},
-    OSU: {wins: 3, tempo: 65.6, em: 7.01},
+    KSU: {wins: 10, tempo: 63.6, em: 18.05},
+    KU: {wins: 9, tempo: 70.4, em: 22.32},
+    TTU: {wins: 9, tempo: 66.9, em: 25.39},
+    ISU: {wins: 8, tempo: 67.9, em: 22.91},
+    BU: {wins: 8, tempo: 65.2, em: 16.99},
+    UT: {wins: 7, tempo: 65.4, em: 18.58},
+    TCU: {wins: 5, tempo: 69.1, em: 15.15},
+    OU: {wins: 4, tempo: 69.3, em: 16.28},
+    OSU: {wins: 3, tempo: 65.6, em: 6.86},
     WVU: {wins: 2, tempo: 69.6, em: 4.08}
 };
 
@@ -65,7 +65,7 @@ function sim(n=20000) {
             if (Math.random() < gameProbs[g].homeWinProb) wins[gameProbs[g].homeTeam] += 1
             else wins[gameProbs[g].awayTeam] += 1
         }
-        let championWins = Object.keys(wins).map(x => wins[x]).reduce((x,y) => Math.max(x,y));
+        let championWins = Math.max.apply(null, Object.values(wins));
         let champions = Object.keys(wins).filter(x => wins[x] == championWins);
         champsCount.update(champions);
         if (champions.length == 1) outrightCount.update(champions)
