@@ -1,12 +1,12 @@
 let teams = {
-    KSU: {wins: 10, tempo: 63.6, em: 18.05},
+    KSU: {wins: 11, tempo: 63.6, em: 18.05},
     KU: {wins: 9, tempo: 70.4, em: 22.32},
     TTU: {wins: 9, tempo: 66.9, em: 25.39},
     ISU: {wins: 8, tempo: 67.9, em: 22.91},
-    BU: {wins: 8, tempo: 65.2, em: 16.99},
+    BU: {wins: 9, tempo: 65.2, em: 16.99},
     UT: {wins: 7, tempo: 65.4, em: 18.58},
-    TCU: {wins: 5, tempo: 69.1, em: 15.15},
-    OU: {wins: 4, tempo: 69.3, em: 16.28},
+    TCU: {wins: 6, tempo: 69.1, em: 15.15},
+    OU: {wins: 5, tempo: 69.3, em: 16.28},
     OSU: {wins: 3, tempo: 65.6, em: 6.86},
     WVU: {wins: 2, tempo: 69.6, em: 4.08}
 };
