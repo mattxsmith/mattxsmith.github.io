@@ -11,66 +11,13 @@ let teams = {
     WVU: {wins: 2, tempo: 69.6, em: 4.08}
 };
 
-const schedule = [
-    ['Feb 23', 'UT', 'OU'],
-    ['Feb 23', 'ISU', 'TCU'],
-    ['Feb 23', 'WVU', 'BU'],
-    ['Feb 23', 'OSU', 'KSU'],
-    ['Feb 23', 'KU', 'TTU'],
-    ['Feb 25', 'OU', 'ISU'],
-    ['Feb 25', 'KSU', 'KU'],
-    ['Feb 26', 'TCU', 'WVU'],
-    ['Feb 27', 'OSU', 'TTU'],
-    ['Feb 27', 'UT', 'BU'],
-    ['Mar 2', 'KU', 'OSU'],
-    ['Mar 2', 'WVU', 'OU'],
-    ['Mar 2', 'ISU', 'UT'],
-    ['Mar 2', 'TTU', 'TCU'],
-    ['Mar 2', 'BU', 'KSU'],
-    ['Mar 4', 'UT', 'TTU'],
-    ['Mar 4', 'KSU', 'TCU'],
-    ['Mar 5', 'KU', 'OU'],
-    ['Mar 6', 'ISU', 'WVU'],
-    ['Mar 6', 'OSU', 'BU'],
-    ['Mar 9', 'TCU', 'UT'],
-    ['Mar 9', 'BU', 'KU'],
-    ['Mar 9', 'TTU', 'ISU'],
-    ['Mar 9', 'WVU', 'OSU'],
-    ['Mar 9', 'OU', 'KSU']
-]
-
 const HCA = 3.5;
 const AVG_TEMPO = 67.9;
 const round = (num, dec) => Math.round(num*10**dec)/10**dec;
 let contenders = ["KSU", "KU", "ISU", "TTU"];
 
-function setSchedule() {
-    let table = document.getElementById('games');
-}
-
 function setProbs() {
     let table = document.getElementById('games');
-
-    for (let g of schedule) {
-        let row = document.createElement('tr');
-        let dateCell = document.createElement('td');
-        let awayCell = document.createElement('td');
-        let homeCell = document.createElement('td');
-        let probCell = document.createElement('td');
-        dateCell.innerText = g[0];
-        awayCell.innerText = g[1];
-        homeCell.innerText = g[2];
-        let probInput = document.createElement('input');
-        probInput.type = 'text';
-        probInput.size = '5';
-        probInput.onchange = 'sim()';
-        probCell.appendChild(probInput);
-        row.appendChild(dateCell);
-        row.appendChild(awayCell);
-        row.appendChild(homeCell);
-        row.appendChild(probCell);
-        table.appendChild(row);
-    }
     let games = table.getElementsByTagName('tr');
 
     for (let i=1; i<games.length; i++) {
