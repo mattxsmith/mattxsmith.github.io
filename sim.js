@@ -14,7 +14,7 @@ let teams = {
 const HCA = 3.5;
 const AVG_TEMPO = 67.9;
 const round = (num, dec) => Math.round(num*10**dec)/10**dec;
-let contenders = ["KSU", "KU", "ISU", "TTU"];
+let contenders = ["KSU", "KU", "TTU"];
 
 function setProbs() {
     let table = document.getElementById('games');
