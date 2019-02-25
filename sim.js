@@ -14,7 +14,7 @@ let teams = {
 const HCA = 3.5;
 const AVG_TEMPO = 67.9;
 const round = (num, dec) => Math.round(num*10**dec)/10**dec;
-let contenders = ["KSU", "KU", "TTU"];
+const contenders = ["KSU", "KU", "TTU"];
 
 function setProbs() {
     let table = document.getElementById('games');
@@ -59,7 +59,7 @@ function sim(n=25000) {
     let champsCount = new Counter();
     let outrightCount = new Counter();
     for (let i=0; i<n; i++) {
-        wins = {};
+        let wins = {};
         Object.keys(teams).forEach(x => wins[x] = teams[x].wins);
         for (let g=0; g<gameProbs.length; g++) {
             if (Math.random() < gameProbs[g].homeWinProb) wins[gameProbs[g].homeTeam] += 1
@@ -99,7 +99,7 @@ function updateSummary(wins, champ, outright) {
     let rows = summary.getElementsByTagName('tr');
     for (let i=1; i<rows.length; i++) {
         let row = rows[i];
-        cells = row.getElementsByTagName('td')
+        let cells = row.getElementsByTagName('td')
         let team = cells[0].innerText;
         cells[1].innerText = wins[team];
         cells[2].innerText = round(champ[team], 3) || 0;
