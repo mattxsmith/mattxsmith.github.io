@@ -1,8 +1,8 @@
 let teams = {
     KSU: {wins: 11, em: 19.31, tempo: 63.8},
-    KU: {wins:   9, em: 21.14, tempo: 70.3},
+    KU: {wins:  10, em: 21.14, tempo: 70.3},
     TTU: {wins: 10, em: 26.93, tempo: 66.7},
-    ISU: {wins:  8, em: 22.54, tempo: 68.1},
+    ISU: {wins:  9, em: 22.54, tempo: 68.1},
     BU: {wins:   9, em: 16.82, tempo: 65.3},
     UT: {wins:   7, em: 18.57, tempo: 65.5},
     TCU: {wins:  6, em: 15.38, tempo: 69.5},
