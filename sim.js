@@ -5,10 +5,10 @@ let teams = {
     BU: {wins:   9, em: 16.79, tempo: 65.1},
     ISU: {wins:  9, em: 23.06, tempo: 67.8},
     UT: {wins:   7, em: 18.51, tempo: 65.4},
-    TCU: {wins:  6, em: 15.29, tempo: 69.3},
+    TCU: {wins:  6, em: 14.76, tempo: 69.3},
     OU: {wins:   5, em: 15.82, tempo: 69.1},
     OSU: {wins:  3, em:  5.48, tempo: 65.6},
-    WVU: {wins:  2, em:  4.31, tempo: 69.8}
+    WVU: {wins:  3, em:  4.89, tempo: 69.8}
 };
 
 const HCA = 3.5;
