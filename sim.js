@@ -1,14 +1,14 @@
 let teams = {
-    KSU: {wins: 11, em: 18.67, tempo: 63.5},
-    TTU: {wins: 10, em: 26.86, tempo: 66.6},
-    KU: {wins:  10, em: 21.72, tempo: 69.9},
-    BU: {wins:   9, em: 16.79, tempo: 65.1},
-    ISU: {wins:  9, em: 23.06, tempo: 67.8},
-    UT: {wins:   7, em: 18.51, tempo: 65.4},
-    TCU: {wins:  6, em: 14.76, tempo: 69.3},
-    OU: {wins:   5, em: 15.82, tempo: 69.1},
-    OSU: {wins:  3, em:  5.48, tempo: 65.6},
-    WVU: {wins:  3, em:  4.89, tempo: 69.8}
+    KSU: {wins: 11, em: 18.69, tempo: 63.5},
+    TTU: {wins: 11, em: 26.00, tempo: 66.6},
+    KU: {wins:  10, em: 21.59, tempo: 69.9},
+    BU: {wins:  10, em: 16.60, tempo: 65.1},
+    ISU: {wins:  9, em: 22.96, tempo: 67.8},
+    UT: {wins:   7, em: 18.70, tempo: 65.4},
+    TCU: {wins:  6, em: 14.75, tempo: 69.3},
+    OU: {wins:   5, em: 15.77, tempo: 69.1},
+    OSU: {wins:  3, em:  6.25, tempo: 65.6},
+    WVU: {wins:  3, em:  4.86, tempo: 69.8}
 };
 
 const HCA = 3.5;
