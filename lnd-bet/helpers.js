@@ -23,7 +23,7 @@ function getMarkets() {
     return {"markets":[{"market_end":"2019-06-17T07:00:00Z","options":["Gary Woodland","Justin Rose","Other"],"market_id":1,"name":"2019 US Open (Golf) Winner"}]}
 }
 
-function updateTiles() {
+function populateTiles() {
     
 }
 

@@ -50,6 +50,7 @@ body.sidebar-mini .sidebar .sidebar-menu li a {
 }
 body.sidebar-mini .sidebar .sidebar-menu li a span {
   display: none;
+  transition: all .5s linear;
 }
 
 .page-content {
@@ -68,17 +69,13 @@ body.sidebar-mini .sidebar .sidebar-menu li a span {
   border-radius: 2px;
 }
 
-.page-content button:hover {
-  background: #03c4e8;
-}
-
 #markets {
   display: grid;
   width: 1000px;
   border: 1px gray;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
-  grid-auto-rows: 300px;
+  grid-auto-rows:minmax(150px, auto);
 }
 
 #markets > div {
@@ -91,4 +88,24 @@ body.sidebar-mini .sidebar .sidebar-menu li a span {
   font-size: 1.5em;
   font-weight: bold;
   margin-top: 0px;
+}
+
+.orderbook {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-gap: 2px;
+
+  margin-top: 15px;
+  width: 80%;
+}
+
+.orderbook-header {
+  font-weight: bold;
+  border: 0px solid black;
+  background: #b1d1de;
+  
+}
+
+.orderbook > div {
+  padding-left: .2em;
 }
