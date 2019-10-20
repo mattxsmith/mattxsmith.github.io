@@ -50,6 +50,7 @@ function changeConference(conf) {
 }
 
 function populateDropdown() {
+    console.log('asdfasd');
     let team_names = Object.keys(teams);
     let confs = team_names.map(x => teams[x].conference);
     // console.log(confs);
@@ -67,6 +68,10 @@ function populateDropdown() {
         o.innerText = confs[i];
         selectBox.appendChild(o);
     }
+    function foo(event) {
+       console.log('asdf');
+       console.log(event.target.value);
+    }
 
-    selectBox.addEventListener('change', () => console.log(this));
+    selectBox.addEventListener('change', foo);
 }

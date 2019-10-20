@@ -1,6 +1,6 @@
 function initSummaryTable() {
     let new_table = document.createElement('table');
-    new_table.id = '#summary-table';
+    new_table.id = 'summary-table';
     let thead = document.createElement('thead');
     let theadTr = document.createElement('tr');
     let headerCells = ['Team', 'EM', 'Tempo', 'Outright', 'Share']
@@ -68,5 +68,10 @@ function populateDropdown() {
         selectBox.appendChild(o);
     }
 
-    selectBox.addEventListener('change', () => console.log(this));
+    selectBox.addEventListener('change', (event) => changeConference(event.target.value));
+}
+
+window.onload = function() {
+    changeConference('B12');
+    populateDropdown();
 }
