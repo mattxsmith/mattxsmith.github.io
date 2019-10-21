@@ -20,7 +20,7 @@ for row in ratings_table.findAll('tr'):
 req_header = {'cookie': 'PHPSESSID=k316bpo3p7lbv65m5rh5ogcbo6'}
 team_scheds = {}
 
-for team in teams[:15]:
+for team in teams:
         html = requests.get('https://kenpom.com/team.php?team={}'.format(quote_plus(team)), headers=req_header).text
         b = bs4.BeautifulSoup(html, 'lxml')
         games = b.find_all('tr', {'class': 'un'})

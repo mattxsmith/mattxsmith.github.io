@@ -2,6 +2,10 @@ body {
     margin: 20px;
 }
 
+td.t {
+    text-align: left;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -13,3 +17,4 @@ table, th, td {
 thead tr td {
     font-weight: bold;
 }
+
