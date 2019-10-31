@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.16d49e58.chunk.css",
-    "main.js": "/static/js/main.6d711e40.chunk.js",
-    "main.js.map": "/static/js/main.6d711e40.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.16eb02e5.js",
-    "runtime~main.js.map": "/static/js/runtime~main.16eb02e5.js.map",
-    "static/js/2.0d812863.chunk.js": "/static/js/2.0d812863.chunk.js",
-    "static/js/2.0d812863.chunk.js.map": "/static/js/2.0d812863.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.ecf0296dc083aeed149ce79a93590ecc.js": "/precache-manifest.ecf0296dc083aeed149ce79a93590ecc.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.16d49e58.chunk.css.map": "/static/css/main.16d49e58.chunk.css.map"
+    "main.css": "lndb-site/static/css/main.16d49e58.chunk.css",
+    "main.js": "lndb-site/static/js/main.6d711e40.chunk.js",
+    "main.js.map": "lndb-site/static/js/main.6d711e40.chunk.js.map",
+    "runtime~main.js": "lndb-site/static/js/runtime~main.32228ac8.js",
+    "runtime~main.js.map": "lndb-site/static/js/runtime~main.32228ac8.js.map",
+    "static/js/2.0d812863.chunk.js": "lndb-site/static/js/2.0d812863.chunk.js",
+    "static/js/2.0d812863.chunk.js.map": "lndb-site/static/js/2.0d812863.chunk.js.map",
+    "index.html": "lndb-site/index.html",
+    "precache-manifest.8fcf9d2e1116579f74cd1626d063d41f.js": "lndb-site/precache-manifest.8fcf9d2e1116579f74cd1626d063d41f.js",
+    "service-worker.js": "lndb-site/service-worker.js",
+    "static/css/main.16d49e58.chunk.css.map": "lndb-site/static/css/main.16d49e58.chunk.css.map"
   }
 }
