@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Chess Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        #fen {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            word-break: break-word;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const boards = [
+				{"fen": "8/2p1k3/P2n4/8/8/5P1p/6PP/1KN5 w - - 0 1"},
+				{"fen": "8/5nP1/3p4/7k/1p6/P5p1/2K5/8 w - - 0 1"},
+				{"fen": "7k/3p2p1/PP2K3/2P5/5P2/2B1P3/1p6/8 w - - 0 1"},
+				{"fen": "8/5bk1/P7/2N5/8/K7/8/8 w - - 0 1"},
+				{"fen": "8/2k4p/2p2p2/4p3/4P3/P6p/2N3PK/8 w - - 0 1"},
+				{"fen": "8/8/k6p/8/4K2P/4P3/3P1P2/7b w - - 0 1"},
+				{"fen": "3K4/6b1/8/k7/7P/5P2/4P3/8 w - - 0 1"},
+				{"fen": "8/3N2k1/4p3/p1p5/2p2P1p/4PP2/4P3/6K1 w - - 0 1"},
+				{"fen": "3K4/n3p3/p1pP1p2/8/4P3/7k/8/8 w - - 0 1"},
+				{"fen": "8/8/P7/P1K2k2/pP3b2/2P2p2/4P3/8 w - - 0 1"},
+				{"fen": "8/5K2/3P3p/1pR5/3p4/8/5Pp1/3k4 w - - 0 1"},
+				{"fen": "8/7n/4p3/1K2P3/8/P3p2k/4P3/8 w - - 0 1"},
+				{"fen": "1k3K2/7P/3n4/2p5/1ppP4/1p4Pp/PP6/8 w - - 0 1"},
+				{"fen": "3k4/8/7P/p1K5/2P5/8/P1p3P1/8 w - - 0 1"},
+				{"fen": "8/1K6/1p1p4/p1pp4/6k1/PP2P3/P1P5/8 w - - 0 1"},
+				{"fen": "8/1pp2pk1/1P1p1p2/8/5K2/8/1n3P2/8 w - - 0 1"},
+				{"fen": "8/5P2/7P/8/r4K2/8/6P1/3k4 w - - 0 1"},
+				{"fen": "1KR5/8/4k2N/3p4/8/8/8/8 w - - 0 1"},
+				{"fen": "6k1/K7/p3nP2/8/1B6/1P6/8/8 w - - 0 1"},
+				{"fen": "8/7p/8/1Kp1k3/8/P7/2P5/8 w - - 0 1"},
+				{"fen": "8/p3p3/1R3p2/1p6/6K1/p7/8/6k1 w - - 0 1"},
+				{"fen": "3k4/2p3P1/8/1p6/pp6/8/2K5/8 w - - 0 1"},
+				{"fen": "3k4/2N5/4P3/8/2P3PK/8/5p1P/8 w - - 0 1"},
+				{"fen": "3k4/2p5/1PKp4/1b6/5Pp1/5P2/P7/8 w - - 0 1"},
+				{"fen": "8/3p4/3p3P/8/1k6/2p2K2/8/3n4 w - - 0 1"},
+				{"fen": "1K6/5p2/8/2P5/3P1p2/2P5/k7/8 w - - 0 1"},
+				{"fen": "8/8/1P6/6p1/2p1p2P/2k5/8/1K1b4 w - - 0 1"},
+				{"fen": "2k5/8/1P6/6P1/1P5P/3K4/2b1n1P1/8 w - - 0 1"},
+				{"fen": "8/6p1/8/1pp5/2K5/7R/8/6k1 w - - 0 1"},
+				{"fen": "2K4R/1pp5/3p4/8/1Bp5/6k1/6Np/8 w - - 0 1"},
+				{"fen": "8/1p1P4/4P3/2p1p1P1/7P/4P3/1p4Kp/k7 w - - 0 1"},
+				{"fen": "K7/3p4/3p1P2/2P5/P1p2pp1/3k4/7P/8 w - - 0 1"},
+				{"fen": "8/K3P3/8/3bp2k/2p5/8/p7/8 w - - 0 1"},
+				{"fen": "5k2/3p4/p2pp3/8/5pPK/4PP2/1PP5/8 w - - 0 1"},
+				{"fen": "7k/1K6/8/1P6/1P3pP1/1b4P1/8/8 w - - 0 1"},
+				{"fen": "4k3/8/8/7p/1K2p3/3P2P1/8/8 w - - 0 1"},
+				{"fen": "8/3P4/P1nP1P2/K6k/8/3P4/8/6b1 w - - 0 1"},
+				{"fen": "8/3K3P/p2Pp1r1/8/6pp/3P3P/8/2k5 w - - 0 1"},
+				{"fen": "8/p5pP/4P2p/2k5/5K2/4p3/1p2PP2/8 w - - 0 1"},
+				{"fen": "8/2kp1p1p/3p4/2p5/P2P2R1/8/4K3/8 w - - 0 1"},
+				{"fen": "1k6/8/8/8/p7/2P5/4K1P1/8 w - - 0 1"},
+				{"fen": "7K/p5P1/p7/4Pp2/8/8/2k2p2/8 w - - 0 1"},
+				{"fen": "7K/5pp1/P2p2p1/8/1k6/5Pp1/P3P3/8 w - - 0 1"},
+				{"fen": "4k3/4r3/7P/P4P2/2P1K1P1/8/2N5/8 w - - 0 1"},
+				{"fen": "7k/2P5/4p3/7p/3pp1K1/P1P5/5P2/4r3 w - - 0 1"},
+				{"fen": "6n1/8/P7/8/8/6k1/3K4/8 w - - 0 1"},
+				{"fen": "1k6/1p6/6p1/3p2p1/4P3/1p4K1/1P1P4/8 w - - 0 1"},
+				{"fen": "8/7p/6p1/k7/2PK3P/2p5/6P1/8 w - - 0 1"},
+				{"fen": "3k4/8/3p1pp1/7B/1P1p4/8/2K1p3/8 w - - 0 1"},
+				{"fen": "4k3/8/8/P7/7p/5P2/3Kr3/8 w - - 0 1"},
+				{"fen": "1K6/2Pp4/1P5p/7k/2B1p1p1/1P6/1pPP2r1/8 w - - 0 1"},
+				{"fen": "8/8/6k1/4b3/8/1P5N/3K1P2/8 w - - 0 1"},
+				{"fen": "8/6p1/5P2/8/2k1p3/2n1PKBP/8/8 w - - 0 1"},
+				{"fen": "8/1R6/1p6/8/8/8/2p3k1/1K6 w - - 0 1"},
+				{"fen": "8/2P5/1P6/2K2pp1/6P1/2p1P1B1/1Pp5/5k2 w - - 0 1"},
+				{"fen": "4K3/P7/7P/P4p2/3Pp3/6P1/2p5/5k2 w - - 0 1"},
+				{"fen": "4k3/3p4/8/p5p1/P5K1/7P/8/8 w - - 0 1"},
+				{"fen": "8/pp6/8/1K1p4/2k5/6P1/5BP1/8 w - - 0 1"},
+				{"fen": "8/2p1K3/4pP2/3p2P1/1p1P4/3p1P2/3P4/1k6 w - - 0 1"},
+				{"fen": "K7/5R1N/8/7p/2p1p3/8/3k4/8 w - - 0 1"},
+				{"fen": "8/1p4P1/Pp5P/5p2/1k2K2P/8/p7/7B w - - 0 1"},
+				{"fen": "k7/1n5p/4B3/2pPp1pp/2PP4/8/2P3K1/8 w - - 0 1"},
+				{"fen": "8/8/3p3p/2p2p2/6P1/8/5k2/1K6 w - - 0 1"},
+				{"fen": "2K5/8/6P1/7P/1k6/6P1/P2p2P1/8 w - - 0 1"},
+				{"fen": "8/7K/1k2ppPP/4P3/1p6/1p6/1P4pP/8 w - - 0 1"},
+				{"fen": "6K1/P7/p2p4/8/kp4pp/3PP3/8/8 w - - 0 1"},
+				{"fen": "8/8/1p6/p2pP3/6K1/8/3k4/8 w - - 0 1"},
+				{"fen": "8/8/1p2k3/8/1P6/P7/3K4/8 w - - 0 1"},
+				{"fen": "8/ppp5/3P4/5p2/NK2P3/P4P1P/5p2/6k1 w - - 0 1"},
+				{"fen": "8/2P5/b7/2K5/4k3/6PP/8/8 w - - 0 1"},
+				{"fen": "8/2k3K1/7P/1P6/1b4P1/8/8/8 w - - 0 1"},
+				{"fen": "5k2/8/K6p/6p1/8/8/1p6/4R3 w - - 0 1"},
+				{"fen": "8/5p2/1P2Pp2/6p1/8/K4pP1/1p1P3P/1k6 w - - 0 1"},
+				{"fen": "5k2/3P1p2/b7/4P1pp/1K1P4/4Pp2/4p2P/8 w - - 0 1"},
+				{"fen": "8/3K4/2p5/p7/4P1p1/4P3/p6R/k7 w - - 0 1"},
+				{"fen": "8/5P2/1pk1r3/2p4K/p3pPp1/6P1/3P3P/8 w - - 0 1"},
+				{"fen": "8/3pk3/2p4P/5p2/8/1n1p4/8/4K3 w - - 0 1"},
+				{"fen": "8/k7/5N1p/p1p5/3p2P1/1P6/8/K7 w - - 0 1"},
+				{"fen": "2K5/8/4P3/8/8/2P5/N2P4/rk6 w - - 0 1"},
+				{"fen": "8/8/6B1/8/7p/4k3/Pp6/K7 w - - 0 1"},
+				{"fen": "8/1R6/8/p1p4k/p2KP2p/4P3/5P2/8 w - - 0 1"},
+				{"fen": "8/5p2/2k5/8/2p5/4pK2/4R3/8 w - - 0 1"},
+				{"fen": "8/2k4K/8/8/3p4/2p1N3/4R3/8 w - - 0 1"},
+				{"fen": "8/6Kp/P2p4/4kp1p/8/8/4N2n/8 w - - 0 1"},
+				{"fen": "8/5p2/1k3p2/p6K/8/1pPB4/3P4/8 w - - 0 1"},
+				{"fen": "8/5K2/4pP2/P4p2/8/6B1/4r3/2k5 w - - 0 1"},
+				{"fen": "8/2p5/1k6/3P2p1/7P/Pn3P1K/8/8 w - - 0 1"},
+				{"fen": "8/7p/1p1P4/8/2p2P2/2kp4/4P1K1/8 w - - 0 1"},
+				{"fen": "8/8/7k/8/N1K2p1p/P3pp1P/8/8 w - - 0 1"},
+				{"fen": "8/8/n7/8/1k1K2P1/4P3/7P/8 w - - 0 1"},
+				{"fen": "8/6p1/8/k7/5P2/8/nP1K1P1P/8 w - - 0 1"},
+				{"fen": "8/8/2P5/1n6/8/1P6/1P6/4K1k1 w - - 0 1"},
+				{"fen": "7K/8/2P5/2P5/1P6/P5P1/4p3/3k4 w - - 0 1"},
+				{"fen": "8/2PK4/6k1/1P5p/P7/8/3p4/8 w - - 0 1"},
+				{"fen": "8/p1P2pp1/8/P4p1K/8/3P4/6p1/6k1 w - - 0 1"},
+				{"fen": "8/1p6/p2pP1p1/2P5/8/2p5/P4P2/3k2K1 w - - 0 1"},
+				{"fen": "3K4/5P2/2p2p2/5PP1/1P6/5p2/4p3/3k4 w - - 0 1"},
+				{"fen": "8/4Ppkp/P1P3p1/3r4/P3p3/2p5/3K4/8 w - - 0 1"},
+				{"fen": "3K4/8/8/PPP2p1p/5n2/1p3k2/2P5/8 w - - 0 1"},
+				{"fen": "8/3P4/7P/8/6K1/3P3p/p6k/8 w - - 0 1"}
+			];
+
+            const fenElement = document.getElementById('fen');
+            const newBoardButton = document.getElementById('new-board');
+            const copyButton = document.getElementById('copy-fen');
+
+            function getRandomBoard() {
+                const randomIndex = Math.floor(Math.random() * boards.length);
+                return boards[randomIndex].fen;
+            }
+
+            function displayRandomBoard() {
+                const fen = getRandomBoard();
+                fenElement.textContent = fen;
+            }
+
+            newBoardButton.addEventListener('click', displayRandomBoard);
+
+            copyButton.addEventListener('click', () => {
+                const fenText = fenElement.textContent;
+                navigator.clipboard.writeText(fenText).then(() => {
+                    alert('FEN copied to clipboard!');
+                }, (err) => {
+                    console.error('Could not copy text: ', err);
+                });
+            });
+
+            // Display an initial random board
+            displayRandomBoard();
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Chess Board</h1>
+        <div id="fen"></div>
+        <button id="new-board">Get New Board</button>
+        <button id="copy-fen">Copy FEN</button>
+    </div>
+</body>
+</html>
