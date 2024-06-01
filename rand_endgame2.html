@@ -175,11 +175,7 @@
 
             copyButton.addEventListener('click', () => {
                 const fenText = fenElement.textContent;
-                navigator.clipboard.writeText(fenText).then(() => {
-                    alert('FEN copied to clipboard!');
-                }, (err) => {
-                    console.error('Could not copy text: ', err);
-                });
+                navigator.clipboard.writeText(fenText);
             });
 
             // Display an initial random board
