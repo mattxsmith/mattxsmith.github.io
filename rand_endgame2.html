@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Chess Board</title>
+    <title>White's Advantage</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,127 +62,187 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const boards = [
-				{"fen": "8/2p1k3/P2n4/8/8/5P1p/6PP/1KN5 w - - 0 1"},
-				{"fen": "8/5nP1/3p4/7k/1p6/P5p1/2K5/8 w - - 0 1"},
-				{"fen": "7k/3p2p1/PP2K3/2P5/5P2/2B1P3/1p6/8 w - - 0 1"},
-				{"fen": "8/5bk1/P7/2N5/8/K7/8/8 w - - 0 1"},
-				{"fen": "8/2k4p/2p2p2/4p3/4P3/P6p/2N3PK/8 w - - 0 1"},
-				{"fen": "8/8/k6p/8/4K2P/4P3/3P1P2/7b w - - 0 1"},
-				{"fen": "3K4/6b1/8/k7/7P/5P2/4P3/8 w - - 0 1"},
-				{"fen": "8/3N2k1/4p3/p1p5/2p2P1p/4PP2/4P3/6K1 w - - 0 1"},
-				{"fen": "3K4/n3p3/p1pP1p2/8/4P3/7k/8/8 w - - 0 1"},
-				{"fen": "8/8/P7/P1K2k2/pP3b2/2P2p2/4P3/8 w - - 0 1"},
-				{"fen": "8/5K2/3P3p/1pR5/3p4/8/5Pp1/3k4 w - - 0 1"},
-				{"fen": "8/7n/4p3/1K2P3/8/P3p2k/4P3/8 w - - 0 1"},
-				{"fen": "1k3K2/7P/3n4/2p5/1ppP4/1p4Pp/PP6/8 w - - 0 1"},
-				{"fen": "3k4/8/7P/p1K5/2P5/8/P1p3P1/8 w - - 0 1"},
-				{"fen": "8/1K6/1p1p4/p1pp4/6k1/PP2P3/P1P5/8 w - - 0 1"},
-				{"fen": "8/1pp2pk1/1P1p1p2/8/5K2/8/1n3P2/8 w - - 0 1"},
-				{"fen": "8/5P2/7P/8/r4K2/8/6P1/3k4 w - - 0 1"},
-				{"fen": "1KR5/8/4k2N/3p4/8/8/8/8 w - - 0 1"},
-				{"fen": "6k1/K7/p3nP2/8/1B6/1P6/8/8 w - - 0 1"},
-				{"fen": "8/7p/8/1Kp1k3/8/P7/2P5/8 w - - 0 1"},
-				{"fen": "8/p3p3/1R3p2/1p6/6K1/p7/8/6k1 w - - 0 1"},
-				{"fen": "3k4/2p3P1/8/1p6/pp6/8/2K5/8 w - - 0 1"},
-				{"fen": "3k4/2N5/4P3/8/2P3PK/8/5p1P/8 w - - 0 1"},
-				{"fen": "3k4/2p5/1PKp4/1b6/5Pp1/5P2/P7/8 w - - 0 1"},
-				{"fen": "8/3p4/3p3P/8/1k6/2p2K2/8/3n4 w - - 0 1"},
-				{"fen": "1K6/5p2/8/2P5/3P1p2/2P5/k7/8 w - - 0 1"},
-				{"fen": "8/8/1P6/6p1/2p1p2P/2k5/8/1K1b4 w - - 0 1"},
-				{"fen": "2k5/8/1P6/6P1/1P5P/3K4/2b1n1P1/8 w - - 0 1"},
-				{"fen": "8/6p1/8/1pp5/2K5/7R/8/6k1 w - - 0 1"},
-				{"fen": "2K4R/1pp5/3p4/8/1Bp5/6k1/6Np/8 w - - 0 1"},
-				{"fen": "8/1p1P4/4P3/2p1p1P1/7P/4P3/1p4Kp/k7 w - - 0 1"},
-				{"fen": "K7/3p4/3p1P2/2P5/P1p2pp1/3k4/7P/8 w - - 0 1"},
-				{"fen": "8/K3P3/8/3bp2k/2p5/8/p7/8 w - - 0 1"},
-				{"fen": "5k2/3p4/p2pp3/8/5pPK/4PP2/1PP5/8 w - - 0 1"},
-				{"fen": "7k/1K6/8/1P6/1P3pP1/1b4P1/8/8 w - - 0 1"},
-				{"fen": "4k3/8/8/7p/1K2p3/3P2P1/8/8 w - - 0 1"},
-				{"fen": "8/3P4/P1nP1P2/K6k/8/3P4/8/6b1 w - - 0 1"},
-				{"fen": "8/3K3P/p2Pp1r1/8/6pp/3P3P/8/2k5 w - - 0 1"},
-				{"fen": "8/p5pP/4P2p/2k5/5K2/4p3/1p2PP2/8 w - - 0 1"},
-				{"fen": "8/2kp1p1p/3p4/2p5/P2P2R1/8/4K3/8 w - - 0 1"},
-				{"fen": "1k6/8/8/8/p7/2P5/4K1P1/8 w - - 0 1"},
-				{"fen": "7K/p5P1/p7/4Pp2/8/8/2k2p2/8 w - - 0 1"},
-				{"fen": "7K/5pp1/P2p2p1/8/1k6/5Pp1/P3P3/8 w - - 0 1"},
-				{"fen": "4k3/4r3/7P/P4P2/2P1K1P1/8/2N5/8 w - - 0 1"},
-				{"fen": "7k/2P5/4p3/7p/3pp1K1/P1P5/5P2/4r3 w - - 0 1"},
-				{"fen": "6n1/8/P7/8/8/6k1/3K4/8 w - - 0 1"},
-				{"fen": "1k6/1p6/6p1/3p2p1/4P3/1p4K1/1P1P4/8 w - - 0 1"},
-				{"fen": "8/7p/6p1/k7/2PK3P/2p5/6P1/8 w - - 0 1"},
-				{"fen": "3k4/8/3p1pp1/7B/1P1p4/8/2K1p3/8 w - - 0 1"},
-				{"fen": "4k3/8/8/P7/7p/5P2/3Kr3/8 w - - 0 1"},
-				{"fen": "1K6/2Pp4/1P5p/7k/2B1p1p1/1P6/1pPP2r1/8 w - - 0 1"},
-				{"fen": "8/8/6k1/4b3/8/1P5N/3K1P2/8 w - - 0 1"},
-				{"fen": "8/6p1/5P2/8/2k1p3/2n1PKBP/8/8 w - - 0 1"},
-				{"fen": "8/1R6/1p6/8/8/8/2p3k1/1K6 w - - 0 1"},
-				{"fen": "8/2P5/1P6/2K2pp1/6P1/2p1P1B1/1Pp5/5k2 w - - 0 1"},
-				{"fen": "4K3/P7/7P/P4p2/3Pp3/6P1/2p5/5k2 w - - 0 1"},
-				{"fen": "4k3/3p4/8/p5p1/P5K1/7P/8/8 w - - 0 1"},
-				{"fen": "8/pp6/8/1K1p4/2k5/6P1/5BP1/8 w - - 0 1"},
-				{"fen": "8/2p1K3/4pP2/3p2P1/1p1P4/3p1P2/3P4/1k6 w - - 0 1"},
-				{"fen": "K7/5R1N/8/7p/2p1p3/8/3k4/8 w - - 0 1"},
-				{"fen": "8/1p4P1/Pp5P/5p2/1k2K2P/8/p7/7B w - - 0 1"},
-				{"fen": "k7/1n5p/4B3/2pPp1pp/2PP4/8/2P3K1/8 w - - 0 1"},
-				{"fen": "8/8/3p3p/2p2p2/6P1/8/5k2/1K6 w - - 0 1"},
-				{"fen": "2K5/8/6P1/7P/1k6/6P1/P2p2P1/8 w - - 0 1"},
-				{"fen": "8/7K/1k2ppPP/4P3/1p6/1p6/1P4pP/8 w - - 0 1"},
-				{"fen": "6K1/P7/p2p4/8/kp4pp/3PP3/8/8 w - - 0 1"},
-				{"fen": "8/8/1p6/p2pP3/6K1/8/3k4/8 w - - 0 1"},
-				{"fen": "8/8/1p2k3/8/1P6/P7/3K4/8 w - - 0 1"},
-				{"fen": "8/ppp5/3P4/5p2/NK2P3/P4P1P/5p2/6k1 w - - 0 1"},
-				{"fen": "8/2P5/b7/2K5/4k3/6PP/8/8 w - - 0 1"},
-				{"fen": "8/2k3K1/7P/1P6/1b4P1/8/8/8 w - - 0 1"},
-				{"fen": "5k2/8/K6p/6p1/8/8/1p6/4R3 w - - 0 1"},
-				{"fen": "8/5p2/1P2Pp2/6p1/8/K4pP1/1p1P3P/1k6 w - - 0 1"},
-				{"fen": "5k2/3P1p2/b7/4P1pp/1K1P4/4Pp2/4p2P/8 w - - 0 1"},
-				{"fen": "8/3K4/2p5/p7/4P1p1/4P3/p6R/k7 w - - 0 1"},
-				{"fen": "8/5P2/1pk1r3/2p4K/p3pPp1/6P1/3P3P/8 w - - 0 1"},
-				{"fen": "8/3pk3/2p4P/5p2/8/1n1p4/8/4K3 w - - 0 1"},
-				{"fen": "8/k7/5N1p/p1p5/3p2P1/1P6/8/K7 w - - 0 1"},
-				{"fen": "2K5/8/4P3/8/8/2P5/N2P4/rk6 w - - 0 1"},
-				{"fen": "8/8/6B1/8/7p/4k3/Pp6/K7 w - - 0 1"},
-				{"fen": "8/1R6/8/p1p4k/p2KP2p/4P3/5P2/8 w - - 0 1"},
-				{"fen": "8/5p2/2k5/8/2p5/4pK2/4R3/8 w - - 0 1"},
-				{"fen": "8/2k4K/8/8/3p4/2p1N3/4R3/8 w - - 0 1"},
-				{"fen": "8/6Kp/P2p4/4kp1p/8/8/4N2n/8 w - - 0 1"},
-				{"fen": "8/5p2/1k3p2/p6K/8/1pPB4/3P4/8 w - - 0 1"},
-				{"fen": "8/5K2/4pP2/P4p2/8/6B1/4r3/2k5 w - - 0 1"},
-				{"fen": "8/2p5/1k6/3P2p1/7P/Pn3P1K/8/8 w - - 0 1"},
-				{"fen": "8/7p/1p1P4/8/2p2P2/2kp4/4P1K1/8 w - - 0 1"},
-				{"fen": "8/8/7k/8/N1K2p1p/P3pp1P/8/8 w - - 0 1"},
-				{"fen": "8/8/n7/8/1k1K2P1/4P3/7P/8 w - - 0 1"},
-				{"fen": "8/6p1/8/k7/5P2/8/nP1K1P1P/8 w - - 0 1"},
-				{"fen": "8/8/2P5/1n6/8/1P6/1P6/4K1k1 w - - 0 1"},
-				{"fen": "7K/8/2P5/2P5/1P6/P5P1/4p3/3k4 w - - 0 1"},
-				{"fen": "8/2PK4/6k1/1P5p/P7/8/3p4/8 w - - 0 1"},
-				{"fen": "8/p1P2pp1/8/P4p1K/8/3P4/6p1/6k1 w - - 0 1"},
-				{"fen": "8/1p6/p2pP1p1/2P5/8/2p5/P4P2/3k2K1 w - - 0 1"},
-				{"fen": "3K4/5P2/2p2p2/5PP1/1P6/5p2/4p3/3k4 w - - 0 1"},
-				{"fen": "8/4Ppkp/P1P3p1/3r4/P3p3/2p5/3K4/8 w - - 0 1"},
-				{"fen": "3K4/8/8/PPP2p1p/5n2/1p3k2/2P5/8 w - - 0 1"},
-				{"fen": "8/3P4/7P/8/6K1/3P3p/p6k/8 w - - 0 1"}
+				{"fen": "2k5/4pp2/8/p7/5PK1/4PpP1/P5P1/8 w - - 0 1", "ad": 6.27}           ,
+				{"fen": "8/2P5/5P1p/1P1p3K/8/p2p4/P1P1p3/2k5 w - - 0 1", "ad": 5.88}       ,
+				{"fen": "3R4/5k2/2p5/4pP2/p5pp/P7/8/5K2 w - - 0 1", "ad": 4.68}            ,
+				{"fen": "8/1K1P2p1/3P4/p2P3p/k3P3/1p2P3/6p1/8 w - - 0 1", "ad": 5.31}      ,
+				{"fen": "8/7p/1PP4p/P2r2k1/2p3P1/5K1p/4P3/8 w - - 0 1", "ad": 6.14}        ,
+				{"fen": "8/1p1p4/Pp1PP3/7K/p2P4/4k3/1P3r2/8 w - - 0 1", "ad": 5.81}        ,
+				{"fen": "8/p1k3n1/Rp5B/7P/2P2P1P/pp6/7P/6K1 w - - 0 1", "ad": 5.9}         ,
+				{"fen": "8/n7/7P/1k3p2/1p2p3/2P5/2P5/7K w - - 0 1", "ad": 5.51}            ,
+				{"fen": "2K5/3P2pp/b7/3PP3/8/2p1p3/4P2P/k7 w - - 0 1", "ad": 5.8}          ,
+				{"fen": "8/7P/1b1p3p/Pp1pK3/2k5/8/4P3/8 w - - 0 1", "ad": 5.73}            ,
+				{"fen": "6K1/5p1P/8/4p3/k7/4pp2/8/8 w - - 0 1", "ad": 8.46}                ,
+				{"fen": "5k2/4p3/8/2pPp2p/1P3P2/4p1P1/6KP/8 w - - 0 1", "ad": 7.4}         ,
+				{"fen": "7b/p1N3P1/4ppn1/6p1/P1k5/7K/P7/8 w - - 0 1", "ad": 6.45}          ,
+				{"fen": "8/6k1/PP1P4/8/1ppp2p1/4P3/3P3p/b6K w - - 0 1", "ad": 7.09}        ,
+				{"fen": "8/8/7P/3p1k2/p1P5/2p2p2/2P1P3/1b3K2 w - - 0 1", "ad": 5.06}       ,
+				{"fen": "1K4n1/3P4/R7/2k1P3/2P5/3b4/1p6/8 w - - 0 1", "ad": 8.73}          ,
+				{"fen": "2n5/6KP/2pp4/8/p2P4/8/2p1P2k/8 w - - 0 1", "ad": 5.45}            ,
+				{"fen": "8/6KP/3k2P1/2pp4/1p4p1/Pp6/7P/8 w - - 0 1", "ad": 9.75}           ,
+				{"fen": "3K4/3p3P/8/4Pb1N/8/1k6/8/8 w - - 0 1", "ad": 8.53}                ,
+				{"fen": "8/4N3/P7/KPP5/1p2p1Pp/8/5p1P/4k3 w - - 0 1", "ad": 2.69}          ,
+				{"fen": "8/PN4k1/1B3p2/8/2KpP3/8/1Pp1P3/8 w - - 0 1", "ad": 6.88}          ,
+				{"fen": "8/4P3/3P1KP1/8/p5P1/p5kP/p7/8 w - - 0 1", "ad": 2.76}             ,
+				{"fen": "8/4P3/P5P1/4P3/K6P/1p1k4/7p/8 w - - 0 1", "ad": 6.06}             ,
+				{"fen": "8/5R1p/8/6k1/1K1n4/8/6P1/8 w - - 0 1", "ad": 4.71}                ,
+				{"fen": "7K/2P5/4p3/5pp1/8/1P4P1/1p6/4k1N1 w - - 0 1", "ad": 3.91}         ,
+				{"fen": "8/k7/p6p/1p1p3P/K5p1/2B5/2P5/8 w - - 0 1", "ad": 6.12}            ,
+				{"fen": "8/8/PK3n1P/6kP/1pp4p/4p3/7R/8 w - - 0 1", "ad": 9.12}             ,
+				{"fen": "8/2p1K3/p4P1p/4p3/2p5/8/8/2k5 w - - 0 1", "ad": 5.96}             ,
+				{"fen": "K7/2P4p/2p5/5k2/P7/8/p3P2p/8 w - - 0 1", "ad": 5.93},				
+				{"fen": "8/4k2B/1P4K1/8/8/3p1pP1/4P3/8 w - - 0 1", "ad": 6.96},
+				{"fen": "8/4P2p/2p4K/3pkP2/P1p4b/p7/8/8 w - - 0 1", "ad": 4.78},
+				{"fen": "8/p4pn1/6k1/1P6/P4p2/5K2/1Np5/2B5 w - - 0 1", "ad": 4.09},
+				{"fen": "1k6/4pp2/8/5P2/P1P1K3/1P5p/2P5/8 w - - 0 1", "ad": 7.48},
+				{"fen": "8/p6P/8/7p/1p2p1k1/1K6/1P2P3/1b6 w - - 0 1", "ad": 6.89},
+				{"fen": "8/3bP3/8/1p6/3P3p/1RK5/3P4/5k2 w - - 0 1", "ad": 6.56},
+				{"fen": "5k2/7p/p2P4/4p1p1/1P3P2/8/2p1K2b/1B5N w - - 0 1", "ad": 3.25},
+				{"fen": "4K3/8/2P4P/1p1Pp2p/p7/8/k5p1/8 w - - 0 1", "ad": 2.74},
+				{"fen": "8/8/1p5p/6p1/PP2k3/3p4/B6K/8 w - - 0 1", "ad": 5.52},
+				{"fen": "8/K7/1N1P3p/5P2/P1p4P/7P/1p4k1/8 w - - 0 1", "ad": 4.97},
+				{"fen": "8/1p1p2p1/6P1/p7/5p2/1K4P1/8/6k1 w - - 0 1", "ad": 5.3},
+				{"fen": "8/3P4/5k2/2np1P1p/8/2P5/1K2P2p/8 w - - 0 1", "ad": 6.79},
+				{"fen": "7K/6P1/8/4p1P1/1pp2pP1/1P1P4/3k4/2nB4 w - - 0 1", "ad": 8.73},
+				{"fen": "8/8/bp6/7P/2k5/P6N/3p3P/3K4 w - - 0 1", "ad": 6.96},
+				{"fen": "8/7p/3P1K2/1P1P2n1/8/5p2/3P4/1k6 w - - 0 1", "ad": 3.26},
+				{"fen": "K7/n5p1/6p1/8/8/4p3/P1PP1P2/2k5 w - - 0 1", "ad": 3.18},
+				{"fen": "8/8/1pk5/P7/p4Pp1/2p5/P1pR4/1K6 w - - 0 1", "ad": 8.2},
+				{"fen": "8/1Np3Kp/p4P2/B7/8/5k2/1p6/8 w - - 0 1", "ad": 2.39},
+				{"fen": "8/1Pp3P1/8/6P1/5p2/5pK1/2p5/7k w - - 0 1", "ad": 2.24},
+				{"fen": "B7/3p1K2/4PP2/4p3/2k5/4P1p1/2n2P2/8 w - - 0 1", "ad": 8.73},
+				{"fen": "8/2P2K2/8/8/8/2P3P1/6pk/8 w - - 0 1", "ad": 3.35},
+				{"fen": "8/5p2/P4P2/PK6/4P3/5p2/1P6/2k5 w - - 0 1", "ad": 5.04},
+				{"fen": "8/5p2/1K4p1/8/P3P1p1/1P2k3/7P/8 w - - 0 1", "ad": 8.1},
+				{"fen": "8/6k1/1P6/P1P5/1p6/8/1PK4p/8 w - - 0 1", "ad": 4.59},
+				{"fen": "8/5p1p/8/2K3kP/8/3P3p/7P/8 w - - 0 1", "ad": 9.8},
+				{"fen": "8/3p1PP1/4p3/1K1p1P2/3p4/8/Pk2p1P1/8 w - - 0 1", "ad": 8.01},
+				{"fen": "8/3P4/1p6/5P2/1k6/5pP1/2PK4/7r w - - 0 1", "ad": 7.43},
+				{"fen": "8/3P4/4r3/5KP1/1P6/3pp3/6PP/2k5 w - - 0 1", "ad": 3.74},
+				{"fen": "3K1n2/2P5/8/2p2p2/2p4k/1PP1P3/8/8 w - - 0 1", "ad": 9.36},
+				{"fen": "8/3P4/Pk6/2p2p1p/P7/4p2P/4Kpn1/5r2 w - - 0 1", "ad": 6.79},
+				{"fen": "8/1PP2K2/P7/4P3/1p6/4k3/3pp1P1/8 w - - 0 1", "ad": 9.69},
+				{"fen": "8/5p2/1N6/8/p7/1P5p/1B2P3/K5k1 w - - 0 1", "ad": 5.4},
+				{"fen": "4k3/8/8/6pP/8/8/Kp2P3/1N6 w - - 0 1", "ad": 8.97},
+				{"fen": "2R5/4K3/kP4P1/4P3/6P1/4rp2/8/8 w - - 0 1", "ad": 7.24},
+				{"fen": "8/3PP3/1P2p3/4P3/p7/5P2/4p1p1/k6K w - - 0 1", "ad": 6.35},
+				{"fen": "8/1P1P4/7p/1p4K1/8/1kp5/8/5b2 w - - 0 1", "ad": 5.67},
+				{"fen": "8/6P1/2P5/4Kp2/5P1P/8/4p2k/8 w - - 0 1", "ad": 4.98},
+				{"fen": "8/2k2Bp1/2p2p2/5n2/N7/5P2/1PP5/5K2 w - - 0 1", "ad": 4.13},
+				{"fen": "8/1k3P2/8/6K1/4p3/4P3/2p1B3/8 w - - 0 1", "ad": 5.87},
+				{"fen": "8/1P6/8/1p5r/Pk1KP3/8/8/8 w - - 0 1", "ad": 8.71},
+				{"fen": "2K5/2P5/8/8/7p/7r/1P6/4k3 w - - 0 1", "ad": 1.98},
+				{"fen": "8/4pp2/3P4/k5P1/4P3/7K/1p1P1P2/8 w - - 0 1", "ad": 6.85},
+				{"fen": "8/7k/4p3/N7/8/6P1/8/4K3 w - - 0 1", "ad": 8.19},
+				{"fen": "8/P7/1k1P4/4K3/3P4/7p/2PP2p1/8 w - - 0 1", "ad": 6.11},
+				{"fen": "8/4p3/pp1bP3/P5kp/3P4/2P5/3NP3/6K1 w - - 0 1", "ad": 5.66},
+				{"fen": "8/k3K3/4P3/4P1P1/1P6/7p/8/5n2 w - - 0 1", "ad": 3.5},
+				{"fen": "8/3K3p/6k1/6p1/1Bp1Pp2/6P1/8/8 w - - 0 1", "ad": 7.2},
+				{"fen": "5K2/1P6/8/2p2P2/pp1pP3/1kP5/8/8 w - - 0 1", "ad": 6.34},
+				{"fen": "8/1P6/2p5/6P1/K7/P2P4/k3pP2/8 w - - 0 1", "ad": 4.53},
+				{"fen": "8/2P5/K4p2/5P1P/6P1/2p5/1k4b1/8 w - - 0 1", "ad": 9.44},
+				{"fen": "K7/8/4P2p/8/P7/p7/4P3/5k2 w - - 0 1", "ad": 2.89},
+				{"fen": "8/4p3/2Rp2p1/6p1/8/2P5/P7/3K3k w - - 0 1", "ad": 8.46},
+				{"fen": "5K2/7k/pB1p1p1P/8/5p2/5P2/8/8 w - - 0 1", "ad": 8.93},
+				{"fen": "K3k3/5pP1/8/2p1P3/1P3p2/1p6/7p/8 w - - 0 1", "ad": 8.68},
+				{"fen": "8/3pk3/4P1Kp/8/1pp2PP1/4R3/Pp1P4/8 w - - 0 1", "ad": 7.06},
+				{"fen": "8/3p4/Kp1r4/2P1k1NP/4P3/P7/3P4/4n3 w - - 0 1", "ad": 7.34},
+				{"fen": "8/2k5/4p3/2P2NPK/1P1p3P/2RP4/5p2/1n6 w - - 0 1", "ad": 7.82},
+				{"fen": "4b3/6p1/7P/2k2P2/7P/pK3p2/1PP5/2B5 w - - 0 1", "ad": 7.86},
+				{"fen": "8/8/6k1/bP2K3/p7/8/3R4/8 w - - 0 1", "ad": 5.29},
+				{"fen": "8/5R2/2KpN1p1/2p5/5P2/1P2p3/p7/2k5 w - - 0 1", "ad": 5.67},
+				{"fen": "5N1K/p7/1p5R/8/3k4/8/1P6/8 w - - 0 1", "ad": 6.3},
+				{"fen": "8/8/3p4/7k/1pN2p2/5K2/3P3P/8 w - - 0 1", "ad": 8.2},
+				{"fen": "8/4K2p/1P6/5Prp/P1P2p2/4k3/4P3/8 w - - 0 1", "ad": 5.05},
+				{"fen": "8/3p4/7p/P7/3PK3/2p3bp/2R5/6k1 w - - 0 1", "ad": 5.84},
+				{"fen": "8/8/4p3/k3p3/5P2/4Pp2/K4P2/8 w - - 0 1", "ad": 6.42},
+				{"fen": "8/6Kp/2k5/rp6/3P4/4P1P1/8/7R w - - 0 1", "ad": 3.16},
+				{"fen": "5k2/3p4/K7/8/3R4/p1p2P1P/5P2/8 w - - 0 1", "ad": 7.91},
+				{"fen": "NK6/2pR4/1P4pP/8/1r1pP1p1/5P2/2P3k1/8 w - - 0 1", "ad": 9.26},
+				{"fen": "8/4P3/2K5/8/P2P4/1P2p2p/8/5k2 w - - 0 1", "ad": 6.14},
+				{"fen": "8/8/2P5/1PP4K/4k3/pPp5/6P1/8 w - - 0 1", "ad": 1.48},
+				{"fen": "5K2/1p6/3Pp3/6r1/k7/2P2pP1/6P1/4N3 w - - 0 1", "ad": 5.26},
+				{"fen": "8/3N4/7P/2K5/8/4P2P/k2P3p/8 w - - 0 1", "ad": 5.92},
+				{"fen": "8/3K4/8/6p1/2k1p1P1/8/2P1P1P1/8 w - - 0 1", "ad": 9.91},
+				{"fen": "8/3RK1P1/8/1p5P/3PP3/k3P3/1p3p2/8 w - - 0 1", "ad": 5.27},
+				{"fen": "8/5P2/P4p2/2p2k2/5p2/4p3/K2p1R2/8 w - - 0 1", "ad": 9.95},
+				{"fen": "8/p1K1p3/3P4/8/P1P5/3P4/3k1p2/8 w - - 0 1", "ad": 4.93},
+				{"fen": "2k5/8/3pp3/2p5/8/8/3p3P/5KNB w - - 0 1", "ad": 3.94},
+				{"fen": "5k1K/8/8/6p1/7B/7P/5pp1/8 w - - 0 1", "ad": 8.65},
+				{"fen": "4N3/K7/4P3/PP2pk2/1P6/b2P3p/8/8 w - - 0 1", "ad": 5.67},
+				{"fen": "8/P1b5/7P/2K5/P7/2P2pP1/p7/k7 w - - 0 1", "ad": 8.01},
+				{"fen": "8/3p4/1p6/1p6/3kp1p1/R4K1P/8/8 w - - 0 1", "ad": 5.22},
+				{"fen": "8/8/3pP2N/5p2/3P4/P1P3k1/pP1K4/8 w - - 0 1", "ad": 4.25},
+				{"fen": "K7/3p4/P5P1/p2p3P/8/8/2kp4/8 w - - 0 1", "ad": 2.82},
+				{"fen": "8/1p6/5Pk1/P6p/8/NP1R4/p1P2Kp1/8 w - - 0 1", "ad": 9.48},
+				{"fen": "8/2P5/6k1/5n2/5P2/1p1P4/3pK1PP/8 w - - 0 1", "ad": 9.71},
+				{"fen": "8/1P6/2K5/8/2P3P1/4kp2/1P6/1b6 w - - 0 1", "ad": 5.59},
+				{"fen": "8/P1p3p1/8/1pK1P3/6P1/4p3/4Pkp1/8 w - - 0 1", "ad": 1.83},
+				{"fen": "1K6/4p3/1p1p4/2P3P1/8/2p2P2/P3P3/7k w - - 0 1", "ad": 5.16},
+				{"fen": "8/P2k4/2p5/2PP2np/8/p1pK4/1P6/8 w - - 0 1", "ad": 7.72},
+				{"fen": "1k1K4/1Pp2r2/6P1/2P5/5P2/1N3Pp1/4p3/8 w - - 0 1", "ad": 3.74},
+				{"fen": "5K2/6p1/3p2R1/1p6/p7/k7/5P2/8 w - - 0 1", "ad": 8.46},
+				{"fen": "8/p3P3/r2P4/2knPPP1/5B2/1p6/1p1K4/6R1 w - - 0 1", "ad": 7.74},
+				{"fen": "8/1P1k4/K5P1/5P2/7p/2Pp4/3p4/8 w - - 0 1", "ad": 8.11},
+				{"fen": "8/5P2/P5p1/3p4/4k3/7p/P1P2Kp1/1n6 w - - 0 1", "ad": 9.96},
+				{"fen": "8/3B1k2/Np1K3P/5p2/P6p/p4p2/8/8 w - - 0 1", "ad": 4.23},
+				{"fen": "8/p3P3/1K6/7P/1P2PP2/p7/8/1k6 w - - 0 1", "ad": 6.14},
+				{"fen": "8/1P2Ppp1/4K3/2p4P/3P3P/5k2/2p5/8 w - - 0 1", "ad": 8.25},
+				{"fen": "8/p1p3Pp/8/8/8/2p3P1/2K3P1/5kn1 w - - 0 1", "ad": 5.86},
+				{"fen": "8/2Pp3P/8/1K4p1/2PP4/5p2/kp2P3/8 w - - 0 1", "ad": 2.85},
+				{"fen": "8/8/1k5p/3p1PP1/1P3B2/p4P2/2P4p/3K4 w - - 0 1", "ad": 9.08},
+				{"fen": "8/8/5P2/RP2p3/4k3/1P6/8/1K1r4 w - - 0 1", "ad": 3.49},
+				{"fen": "8/6K1/5P2/3P4/6kP/1p2p3/1P6/8 w - - 0 1", "ad": 5.69},
+				{"fen": "8/1b5P/1k2P3/8/1p2nP2/4K3/1P5P/8 w - - 0 1", "ad": 7.58},
+				{"fen": "8/4P3/1p2K2P/B1p5/8/1k6/5p2/8 w - - 0 1", "ad": 9.89},
+				{"fen": "2K5/p2p4/8/5P2/p1p5/3PP3/4k2B/8 w - - 0 1", "ad": 8.81},
+				{"fen": "8/5P2/3KP3/5P2/2k1p3/8/6p1/8 w - - 0 1", "ad": 6.17},
+				{"fen": "8/1pp5/P6K/7P/1kpP1Pp1/4p3/8/8 w - - 0 1", "ad": 4.66},
+				{"fen": "8/5n1p/3PP3/p1P4p/5K2/8/p6P/5k2 w - - 0 1", "ad": 4.27},
+				{"fen": "8/8/5P2/K2N1pP1/1p1k1P2/3P4/2p4P/8 w - - 0 1", "ad": 5.3},
+				{"fen": "1k3r2/7P/3P1N2/2p1P3/7P/2K1pp2/3P4/8 w - - 0 1", "ad": 5.46},
+				{"fen": "6K1/6P1/8/3P3p/5P2/6r1/8/7k w - - 0 1", "ad": 6.16},
+				{"fen": "8/P3P3/8/2kP3P/3p1p2/K1p2P2/p7/1r6 w - - 0 1", "ad": 7.85},
+				{"fen": "8/8/7p/3pPp2/1p6/1K2P3/2pBk3/8 w - - 0 1", "ad": 8.7},
+				{"fen": "8/p7/p1pp1P2/3P3k/1b1PpP2/5K2/8/8 w - - 0 1", "ad": 5.22},
+				{"fen": "8/6PP/4P1K1/5P2/1p6/5Ppp/1p6/3k4 w - - 0 1", "ad": 6.39},
+				{"fen": "8/1KPp4/8/1P5p/P6P/8/1P3p2/3k4 w - - 0 1", "ad": 6.66},
+				{"fen": "8/3p4/2k2P1P/3p3P/P4p2/1P3K2/p7/8 w - - 0 1", "ad": 2.96},
+				{"fen": "8/3k1P2/8/3P1K2/7p/4p3/r2P4/8 w - - 0 1", "ad": 6.22},
+				{"fen": "8/4p3/8/1pk1p1pB/8/1P6/8/3K1R2 w - - 0 1", "ad": 7.53},
 			];
 
             const fenElement = document.getElementById('fen');
             const newBoardButton = document.getElementById('new-board');
             const copyButton = document.getElementById('copy-fen');
             const boardImage = document.getElementById('board-image');
+            const titleElement = document.querySelector('title');
+            const h1Element = document.querySelector('h1');
 
             function getRandomBoard() {
                 const randomIndex = Math.floor(Math.random() * boards.length);
-                return boards[randomIndex].fen;
+                return boards[randomIndex];
             }
 
             function displayRandomBoard() {
-                const fen = getRandomBoard();
+                const board = getRandomBoard();
+                const fen = board.fen;
+                const advantage = board.ad;
+
                 fenElement.textContent = fen;
                 updateBoardImage(fen);
+                updateTitleAndHeader(advantage);
             }
 
             function updateBoardImage(fen) {
                 const formattedFen = fen.replace(/ /g, '_');
                 boardImage.src = `https://lichess1.org/export/fen.gif?fen=${formattedFen}`;
+            }
+
+            function updateTitleAndHeader(advantage) {
+                const advantageText = `Advantage: ${advantage}`;
+                titleElement.textContent = advantageText;
+                h1Element.textContent = advantageText;
             }
 
             newBoardButton.addEventListener('click', displayRandomBoard);
@@ -199,7 +259,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Random Chess Board</h1>
+        <h1>White's Advantage</h1>
         <div id="fen"></div>
         <button id="new-board">Get New Board</button>
         <button id="copy-fen">Copy FEN</button>
