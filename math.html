@@ -29,12 +29,19 @@
         #keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            max-width: 200px;
+            gap: 0;
+            max-width: 300px;
             margin: 10px auto;
         }
         #keypad button {
-            font-size: 20px;
+            font-size: 24px;
+            padding: 15px 0;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        #keypad button:active {
+            background-color: #e0e0e0;
         }
         #results {
             text-align: left;
@@ -49,6 +56,14 @@
         }
         .incorrect {
             color: red;
+        }
+        @keyframes flashGreen {
+            0% { background-color: transparent; }
+            50% { background-color: #90EE90; }
+            100% { background-color: transparent; }
+        }
+        .flash-green {
+            animation: flashGreen 0.5s;
         }
     </style>
 </head>
@@ -84,8 +99,8 @@
         <button onclick="addDigit(1)">1</button>
         <button onclick="addDigit(2)">2</button>
         <button onclick="addDigit(3)">3</button>
-        <button onclick="addDigit(0)">0</button>
         <button onclick="clearAnswer()">C</button>
+        <button onclick="addDigit(0)">0</button>
         <button onclick="submitAnswer()">✓</button>
     </div>
     <div id="results"></div>
@@ -131,8 +146,19 @@
 
         function submitAnswer() {
             const userAnswer = parseInt(document.getElementById('answer').value);
+            const correctAnswer = questions[currentQuestion].operation === 'multiplication' 
+                ? questions[currentQuestion].num1 * questions[currentQuestion].num2 
+                : questions[currentQuestion].num1 + questions[currentQuestion].num2;
+
             answers.push(userAnswer);
             clearAnswer();
+
+            if (userAnswer === correctAnswer) {
+                document.body.classList.add('flash-green');
+                setTimeout(() => {
+                    document.body.classList.remove('flash-green');
+                }, 500);
+            }
 
             currentQuestion++;
             if (currentQuestion < 10) {
@@ -164,7 +190,7 @@
                 const correctAnswer = q.operation === 'multiplication' ? q.num1 * q.num2 : q.num1 + q.num2;
                 const opSymbol = q.operation === 'multiplication' ? '×' : '+';
                 const isCorrect = answers[index] === correctAnswer;
-                const questionTime = index === 0 ? totalTime / 10 : totalTime / 10; // Assuming equal time for each question
+                const questionTime = totalTime / 10; // Assuming equal time for each question
                 
                 if (isCorrect) {
                     correctCount++;
