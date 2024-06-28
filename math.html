@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Arithmetic Trainer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        select, button {
+            font-size: 16px;
+            margin: 5px;
+            padding: 5px 10px;
+        }
+        #question {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        #answer {
+            font-size: 20px;
+            width: 100px;
+            text-align: center;
+        }
+        #keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            max-width: 200px;
+            margin: 10px auto;
+        }
+        #keypad button {
+            font-size: 20px;
+        }
+        #results {
+            text-align: left;
+            margin-top: 20px;
+        }
+        #timer {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mental Arithmetic Trainer</h1>
+    <div>
+        <select id="operation">
+            <option value="multiplication">Multiplication</option>
+            <option value="addition">Addition</option>
+        </select>
+        <select id="digits1">
+            <option value="1">1 digit</option>
+            <option value="2">2 digits</option>
+            <option value="3">3 digits</option>
+        </select>
+        <select id="digits2">
+            <option value="1">1 digit</option>
+            <option value="2">2 digits</option>
+            <option value="3">3 digits</option>
+        </select>
+    </div>
+    <button id="start">Start</button>
+    <div id="timer">00:00</div>
+    <div id="question"></div>
+    <input type="text" id="answer" readonly>
+    <div id="keypad">
+        <button onclick="addDigit(7)">7</button>
+        <button onclick="addDigit(8)">8</button>
+        <button onclick="addDigit(9)">9</button>
+        <button onclick="addDigit(4)">4</button>
+        <button onclick="addDigit(5)">5</button>
+        <button onclick="addDigit(6)">6</button>
+        <button onclick="addDigit(1)">1</button>
+        <button onclick="addDigit(2)">2</button>
+        <button onclick="addDigit(3)">3</button>
+        <button onclick="addDigit(0)">0</button>
+        <button onclick="clearAnswer()">C</button>
+        <button onclick="submitAnswer()">✓</button>
+    </div>
+    <div id="results"></div>
+
+    <script>
+        let currentQuestion = 0;
+        let questions = [];
+        let answers = [];
+        let startTime;
+        let timerInterval;
+
+        function generateNumber(digits) {
+            return Math.floor(Math.random() * (10 ** digits - 10 ** (digits - 1)) + 10 ** (digits - 1));
+        }
+
+        function generateQuestions() {
+            const operation = document.getElementById('operation').value;
+            const digits1 = parseInt(document.getElementById('digits1').value);
+            const digits2 = parseInt(document.getElementById('digits2').value);
+
+            questions = [];
+            for (let i = 0; i < 10; i++) {
+                const num1 = generateNumber(digits1);
+                const num2 = generateNumber(digits2);
+                questions.push({num1, num2, operation});
+            }
+        }
+
+        function showQuestion() {
+            const q = questions[currentQuestion];
+            const opSymbol = q.operation === 'multiplication' ? '×' : '+';
+            document.getElementById('question').textContent = `${q.num1} ${opSymbol} ${q.num2} = ?`;
+        }
+
+        function addDigit(digit) {
+            const answer = document.getElementById('answer');
+            answer.value += digit;
+        }
+
+        function clearAnswer() {
+            document.getElementById('answer').value = '';
+        }
+
+        function submitAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            answers.push(userAnswer);
+            clearAnswer();
+
+            currentQuestion++;
+            if (currentQuestion < 10) {
+                showQuestion();
+            } else {
+                endTest();
+            }
+        }
+
+        function updateTimer() {
+            const elapsedTime = Math.floor((new Date() - startTime) / 1000);
+            const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (elapsedTime % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+        }
+
+        function endTest() {
+            clearInterval(timerInterval);
+            const endTime = new Date();
+            const totalTime = (endTime - startTime) / 1000;
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let correctTotalTime = 0;
+
+            let resultsHtml = `<h2>Results</h2><p>Time: ${totalTime.toFixed(2)} seconds</p><ul>`;
+
+            questions.forEach((q, index) => {
+                const correctAnswer = q.operation === 'multiplication' ? q.num1 * q.num2 : q.num1 + q.num2;
+                const opSymbol = q.operation === 'multiplication' ? '×' : '+';
+                const isCorrect = answers[index] === correctAnswer;
+                const questionTime = index === 0 ? totalTime / 10 : totalTime / 10; // Assuming equal time for each question
+                
+                if (isCorrect) {
+                    correctCount++;
+                    correctTotalTime += questionTime;
+                } else {
+                    incorrectCount++;
+                }
+
+                resultsHtml += `<li class="${isCorrect ? 'correct' : 'incorrect'}">${q.num1} ${opSymbol} ${q.num2} = ${answers[index]} (Correct: ${correctAnswer}) ${isCorrect ? '✓' : '✗'}</li>`;
+            });
+
+            resultsHtml += '</ul>';
+
+            if (incorrectCount <= 2) {
+                const averageCorrectTime = correctTotalTime / correctCount;
+                const penaltyTime = incorrectCount * (2 * averageCorrectTime);
+                const adjustedTime = totalTime + penaltyTime;
+                resultsHtml += `<p>Adjusted Time: ${adjustedTime.toFixed(2)} seconds</p>`;
+            } else {
+                resultsHtml += `<p>Adjusted Time: Invalid (more than two incorrect answers)</p>`;
+            }
+
+            document.getElementById('results').innerHTML = resultsHtml;
+            document.getElementById('question').textContent = '';
+            document.getElementById('keypad').style.display = 'none';
+        }
+
+        document.getElementById('start').addEventListener('click', () => {
+            generateQuestions();
+            currentQuestion = 0;
+            answers = [];
+            showQuestion();
+            startTime = new Date();
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('keypad').style.display = 'grid';
+            timerInterval = setInterval(updateTimer, 1000);
+        });
+    </script>
+</body>
+</html>
