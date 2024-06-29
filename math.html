@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>Mental Arithmetic Trainer</title>
     <style>
         body {
@@ -72,6 +73,15 @@
             -ms-user-select: none;
             user-select: none;
         }
+		
+		body {
+			touch-action: manipulation;
+		}
+		#keypad button {
+			touch-action: manipulation;
+		}
+		
+
     </style>
 </head>
 <body>
@@ -258,6 +268,19 @@
             document.getElementById('keypad').style.display = 'grid';
             timerInterval = setInterval(updateTimer, 1000);
         });
+		
+		// Prevent double-tap zoom
+		document.addEventListener('touchend', function(e) {
+			e.preventDefault();
+			e.target.click();
+		}, false);
+
+		// Disable zoom
+		document.addEventListener('touchmove', function(e) {
+			if (e.scale !== 1) {
+				e.preventDefault();
+			}
+		}, { passive: false });
     </script>
 </body>
 </html>
