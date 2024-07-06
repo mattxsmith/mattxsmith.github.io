@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mental Math Trainer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        #timer {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #question {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        #answer {
+            font-size: 24px;
+            width: 150px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .key {
+            font-size: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .key:hover {
+            background-color: #0056b3;
+        }
+        #clear, #submit {
+            grid-column: span 3;
+        }
+        #clear { background-color: #dc3545; }
+        #clear:hover { background-color: #bd2130; }
+        #submit { background-color: #28a745; }
+        #submit:hover { background-color: #218838; }
+        #config {
+            margin-bottom: 20px;
+        }
+        select {
+            margin: 5px;
+            padding: 5px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="config">
+            <select id="operation">
+                <option value="addition">Addition</option>
+                <option value="multiplication">Multiplication</option>
+            </select>
+            <select id="firstNumber">
+                <option value="2">2 digits</option>
+                <option value="3">3 digits</option>
+            </select>
+            <select id="secondNumber">
+                <option value="1">1 digit</option>
+                <option value="2">2 digits</option>
+            </select>
+            <button onclick="startQuiz()">Start Quiz</button>
+        </div>
+        <div id="timer">00:00</div>
+        <div id="question"></div>
+        <input type="text" id="answer" readonly>
+        <div class="keypad">
+            <button class="key" onclick="appendNumber(7)">7</button>
+            <button class="key" onclick="appendNumber(8)">8</button>
+            <button class="key" onclick="appendNumber(9)">9</button>
+            <button class="key" onclick="appendNumber(4)">4</button>
+            <button class="key" onclick="appendNumber(5)">5</button>
+            <button class="key" onclick="appendNumber(6)">6</button>
+            <button class="key" onclick="appendNumber(1)">1</button>
+            <button class="key" onclick="appendNumber(2)">2</button>
+            <button class="key" onclick="appendNumber(3)">3</button>
+            <button class="key" onclick="appendNumber(0)">0</button>
+            <button class="key" id="clear" onclick="clearAnswer()">Clr</button>
+            <button class="key" id="submit" onclick="submitAnswer()">Sub</button>
+        </div>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let startTime, endTime, questionStartTime;
+        let questions = [];
+        let answers = [];
+        let times = [];
+        let timer;
+
+        function startQuiz() {
+            currentQuestion = 0;
+            questions = [];
+            answers = [];
+            times = [];
+            document.getElementById('results').innerHTML = '';
+            generateQuestions();
+            startTime = new Date();
+            askQuestion();
+            startTimer();
+        }
+
+        function generateQuestions() {
+            const operation = document.getElementById('operation').value;
+            const firstDigits = parseInt(document.getElementById('firstNumber').value);
+            const secondDigits = parseInt(document.getElementById('secondNumber').value);
+
+            for (let i = 0; i < 10; i++) {
+                const num1 = Math.floor(Math.random() * (10 ** firstDigits - 10 ** (firstDigits - 1)) + 10 ** (firstDigits - 1));
+                const num2 = Math.floor(Math.random() * (10 ** secondDigits - 10 ** (secondDigits - 1)) + 10 ** (secondDigits - 1));
+                const operator = operation === 'addition' ? '+' : '×';
+                questions.push(`${num1} ${operator} ${num2}`);
+            }
+        }
+
+        function startTimer() {
+            let seconds = 0;
+            timer = setInterval(() => {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function askQuestion() {
+            if (currentQuestion < 10) {
+                document.getElementById('question').textContent = questions[currentQuestion];
+                document.getElementById('answer').value = '';
+                questionStartTime = new Date();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function appendNumber(num) {
+            document.getElementById('answer').value += num;
+        }
+
+        function clearAnswer() {
+            document.getElementById('answer').value = '';
+        }
+
+        function submitAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const correctAnswer = eval(questions[currentQuestion].replace('×', '*'));
+            answers.push({ user: userAnswer, correct: correctAnswer });
+            times.push((new Date() - questionStartTime) / 1000);
+
+            if (userAnswer === correctAnswer) {
+                flashBackground('green');
+            } else {
+                flashBackground('red');
+            }
+
+            currentQuestion++;
+            askQuestion();
+        }
+
+        function flashBackground(color) {
+            document.body.style.backgroundColor = color;
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#f0f0f0';
+            }, 200);
+        }
+
+        function endQuiz() {
+            clearInterval(timer);
+            endTime = new Date();
+            const totalTime = (endTime - startTime) / 1000;
+
+            let resultsHTML = `
+                <h2>Quiz Results</h2>
+                <p>Total Time: ${totalTime.toFixed(2)} seconds</p>
+                <table>
+                    <tr>
+                        <th>Question</th>
+                        <th>Your Answer</th>
+                        <th>Correct Answer</th>
+                        <th>Time (s)</th>
+                    </tr>
+            `;
+
+            for (let i = 0; i < 10; i++) {
+                const isCorrect = answers[i].user === answers[i].correct;
+                resultsHTML += `
+                    <tr>
+                        <td>${questions[i]}</td>
+                        <td class="${isCorrect ? '' : 'incorrect'}">${answers[i].user}</td>
+                        <td>${answers[i].correct}</td>
+                        <td>${times[i].toFixed(2)}</td>
+                    </tr>
+                `;
+            }
+
+            resultsHTML += '</table>';
+            document.getElementById('results').innerHTML = resultsHTML;
+        }
+    </script>
+</body>
+</html>
