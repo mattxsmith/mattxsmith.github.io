@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mental Arithmetic Trainer</title>
     <style>
         body {
@@ -66,22 +65,6 @@
         .flash-green {
             animation: flashGreen 0.5s;
         }
-		
-		* {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-		
-		body {
-			touch-action: manipulation;
-		}
-		#keypad button {
-			touch-action: manipulation;
-		}
-		
-
     </style>
 </head>
 <body>
@@ -184,29 +167,6 @@
                 endTest();
             }
         }
-		
-		function preventZoom(e) {
-            var t2 = e.timeStamp;
-            var t1 = e.currentTarget.dataset.lastTouch || t2;
-            var dt = t2 - t1;
-            var fingers = e.touches.length;
-            e.currentTarget.dataset.lastTouch = t2;
-
-            if (!dt || dt > 500 || fingers > 1) return; // Not double-tap
-
-            e.preventDefault();
-            e.target.click();
-        }
-
-        // Add event listeners to prevent zooming
-        document.addEventListener('touchstart', preventZoom, {passive: false});
-
-        // Disable context menu on long press
-        window.oncontextmenu = function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        };
 
         function updateTimer() {
             const elapsedTime = Math.floor((new Date() - startTime) / 1000);
@@ -268,19 +228,6 @@
             document.getElementById('keypad').style.display = 'grid';
             timerInterval = setInterval(updateTimer, 1000);
         });
-		
-		// Prevent double-tap zoom
-		document.addEventListener('touchend', function(e) {
-			e.preventDefault();
-			e.target.click();
-		}, false);
-
-		// Disable zoom
-		document.addEventListener('touchmove', function(e) {
-			if (e.scale !== 1) {
-				e.preventDefault();
-			}
-		}, { passive: false });
     </script>
 </body>
 </html>
