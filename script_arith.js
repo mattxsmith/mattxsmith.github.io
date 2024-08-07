@@ -21,9 +21,6 @@ function startTest() {
     generateQuestions(max, min);
     displayQuestion();
     startTimer();
-
-    // Automatically focus the answer input field
-    document.getElementById('answer').focus();
 }
 
 function generateQuestions(max, min) {
@@ -31,7 +28,7 @@ function generateQuestions(max, min) {
     for (let i = 0; i < 10; i++) {
         const num1 = Math.floor(Math.random() * (max - min + 1)) + min;
         const num2 = Math.floor(Math.random() * (max - min + 1)) + min;
-        const operation = ['+', '*'][Math.floor(Math.random() * 3)];
+        const operation = ['+', '-', '*'][Math.floor(Math.random() * 3)];
         const questionText = `${num1} ${operation} ${num2}`;
         const answer = eval(questionText);
         
@@ -43,6 +40,8 @@ function displayQuestion() {
     if (currentQuestionIndex < questions.length) {
         document.getElementById('question').innerText = questions[currentQuestionIndex].questionText;
         document.getElementById('answer').value = '';
+        // Focus on the input field whenever a new question is displayed
+        document.getElementById('answer').focus();
     } else {
         endTest();
     }
