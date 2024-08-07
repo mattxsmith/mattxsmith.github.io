@@ -21,6 +21,9 @@ function startTest() {
     generateQuestions(max, min);
     displayQuestion();
     startTimer();
+
+    // Automatically focus the answer input field
+    document.getElementById('answer').focus();
 }
 
 function generateQuestions(max, min) {
