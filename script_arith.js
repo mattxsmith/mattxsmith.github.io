@@ -29,8 +29,28 @@ function generateQuestions(max, min) {
         const num1 = Math.floor(Math.random() * (max - min + 1)) + min;
         const num2 = Math.floor(Math.random() * (max - min + 1)) + min;
         const operation = ['+', '-', '*'][Math.floor(Math.random() * 3)];
-        const questionText = `${num1} ${operation} ${num2}`;
-        const answer = eval(questionText);
+        
+        let questionText;
+        let answer;
+        
+        switch (operation) {
+            case '+':
+                questionText = `${num1} ${operation} ${num2}`;
+                answer = num1 + num2;
+                break;
+            case '-':
+                // Ensure num1 is greater than or equal to num2
+                if (num1 < num2) {
+                    [num1, num2] = [num2, num1]; // Swap values to avoid negative result
+                }
+                questionText = `${num1} ${operation} ${num2}`;
+                answer = num1 - num2;
+                break;
+            case '*':
+                questionText = `${num1} ${operation} ${num2}`;
+                answer = num1 * num2;
+                break;
+        }
         
         questions.push({ questionText, answer });
     }
