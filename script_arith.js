@@ -21,9 +21,6 @@ function startTest() {
     generateQuestions(max, min);
     displayQuestion();
     startTimer();
-
-    // Automatically focus the answer input field
-    document.getElementById('answer').focus();
 }
 
 function generateQuestions(max, min) {
@@ -43,6 +40,8 @@ function displayQuestion() {
     if (currentQuestionIndex < questions.length) {
         document.getElementById('question').innerText = questions[currentQuestionIndex].questionText;
         document.getElementById('answer').value = '';
+        // Focus on the input field whenever a new question is displayed
+        document.getElementById('answer').focus();
     } else {
         endTest();
     }
