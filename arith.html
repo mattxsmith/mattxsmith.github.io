@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Arithmetic Test</title>
+    <link rel="stylesheet" href="styles_arith.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Mental Arithmetic Test</h1>
+        <div id="config">
+            <label for="difficulty">Difficulty:</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <button onclick="startTest()">Start Test</button>
+        </div>
+        <div id="quiz" style="display: none;">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Your answer">
+            <button onclick="submitAnswer()">Submit Answer</button>
+            <p id="timer">Time left: <span id="time">60</span> seconds</p>
+        </div>
+        <div id="result" style="display: none;">
+            <h2>Test Complete</h2>
+            <p id="score"></p>
+            <button onclick="resetTest()">Take Test Again</button>
+        </div>
+    </div>
+    <script src="script_arith.js"></script>
+</body>
+</html>
