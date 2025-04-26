@@ -1,35 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Arithmetic Test</title>
-    <link rel="stylesheet" href="styles_arith.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mental × Practice</title>
+<style>
+:root{--bg:#121212;--fg:#f1f1f1;--accent:#4caf50;font-family:system-ui,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);display:flex;min-height:100vh;align-items:center;justify-content:center}
+.screen{display:none;flex-direction:column;text-align:center;width:100%;max-width:600px;padding:6vw}
+.screen.active{display:flex}
+h1{font-size:8vw;margin-bottom:6vw}
+h2{font-size:6vw;margin:4vw 0}
+#problem{font-size:10vw;margin:8vw 0 4vw}
+select,input,button{font-size:6vw;padding:3vw 6vw;border-radius:8px;border:none}
+input[type=number]{background:none;color:var(--fg);border:2px solid var(--fg);width:60%;text-align:center}
+button{background:var(--accent);color:#fff;margin:6vw auto}
+select{margin-bottom:6vw}
+#timer{font-size:4.5vw;margin-top:4vw}
+#summary{font-size:5vw;margin:8vw 0}
+@media(min-width:500px){
+ h1{font-size:40px}h2{font-size:28px}#problem{font-size:48px}
+ select,input{font-size:28px}button{font-size:28px}#timer{font-size:24px}#summary{font-size:26px}
+}
+</style>
 </head>
 <body>
-    <div id="app">
-        <h1>Mental Arithmetic Test</h1>
-        <div id="config">
-            <label for="difficulty">Difficulty:</label>
-            <select id="difficulty">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            <button onclick="startTest()">Start Test</button>
-        </div>
-        <div id="quiz" style="display: none;">
-            <p id="question"></p>
-            <input type="number" id="answer" placeholder="Your answer" inputmode="numeric">
-            <button onclick="submitAnswer()">Submit Answer</button>
-            <p id="timer">Time left: <span id="time">60</span> seconds</p>
-        </div>
-        <div id="result" style="display: none;">
-            <h2>Test Complete</h2>
-            <p id="score"></p>
-            <button onclick="resetTest()">Take Test Again</button>
-        </div>
-    </div>
-    <script src="script_arith.js"></script>
+
+<!-- Start -->
+<section id="start" class="screen active">
+  <h1>× Practice</h1>
+  <select id="difficulty">
+    <option value="easy">Easy (2 × 2 digits)</option>
+    <option value="medium">Medium (2 × 3 digits)</option>
+    <option value="hard">Hard (3 × 3 digits)</option>
+  </select>
+  <button id="beginBtn">Start 10 Questions</button>
+</section>
+
+<!-- Quiz -->
+<section id="quiz" class="screen">
+  <h2 id="progress">Question 1 / 10</h2>
+  <div id="problem">12 × 34</div>
+  <input id="answerInput" type="number" inputmode="numeric" autocomplete="off">
+  <button id="submitBtn">Submit</button>
+  <div id="timer">00.0 s</div>
+</section>
+
+<!-- Result -->
+<section id="result" class="screen">
+  <h1>Finished!</h1>
+  <div id="summary">Score: 10 / 10<br>Time: 42.3 s</div>
+  <button id="restartBtn">Try Again</button>
+</section>
+
+<script>
+(() => {
+  // ==== utilities ====
+  const $ = id => document.getElementById(id);
+  const rand = (min,max) => Math.floor(Math.random()*(max-min+1))+min;
+  const vibrate = ms => navigator.vibrate && navigator.vibrate(ms);
+
+  // ==== state ====
+  let problems=[], cur=0, correct=0, startT, raf;
+  const diffRanges = {
+    easy : () => [rand(10,99), rand(10,99)],
+    medium: () => [rand(10,99), rand(100,999)],
+    hard : () => [rand(100,999), rand(100,999)]
+  };
+
+  // ==== DOM ====
+  const screens={start:$("start"),quiz:$("quiz"),result:$("result")};
+  const progress=$("progress"),problem=$("problem"),answer=$("answerInput"),
+        timer=$("timer"),summary=$("summary"),difficulty=$("difficulty");
+
+  const show=s=>{for(const k in screens)screens[k].classList.toggle("active",k===s);};
+
+  // timer
+  const tick=()=>{timer.textContent=((performance.now()-startT)/1000).toFixed(1)+' s';raf=requestAnimationFrame(tick);};
+
+  // generate
+  const makeProblems=mode=>{
+    problems=Array.from({length:10},()=>{const [a,b]=diffRanges[mode]();return{a,b,prod:a*b};});
+  };
+
+  const loadQ=()=>{
+    const p=problems[cur];
+    progress.textContent=`Question ${cur+1} / 10`;
+    problem.textContent=`${p.a} × ${p.b}`;
+    answer.value="";
+    answer.focus();
+  };
+
+  const finish=()=>{
+    cancelAnimationFrame(raf);
+    const t=((performance.now()-startT)/1000).toFixed(1);
+    summary.innerHTML=`Score: ${correct} / 10<br>Time: ${t} s`;
+    show("result");
+  };
+
+  const submit=()=>{
+    const val=Number(answer.value);
+    if(!Number.isFinite(val))return;
+    if(val===problems[cur].prod) correct++;
+    else vibrate(100);           // haptic on wrong
+    if(++cur<10) loadQ(); else finish();
+  };
+
+  // events
+  $("beginBtn").onclick=()=>{
+    makeProblems(difficulty.value);
+    cur=correct=0;
+    startT=performance.now();
+    raf=requestAnimationFrame(tick);
+    show("quiz");
+    loadQ();
+  };
+  $("submitBtn").onclick=submit;
+  answer.addEventListener("keyup",e=>e.key==="Enter"&&submit());
+  $("restartBtn").onclick=()=>show("start");
+})();
+</script>
 </body>
 </html>
